@@ -14,11 +14,15 @@ export function GraffitiCursor() {
     const fine=matchMedia("(hover:hover) and (pointer:fine)");
     let particles:Array<{x:number;y:number;r:number;a:number;t:number}>=[];
     let frame=0,lastX=0,lastY=0,ready=false,lastEmit=0;
+    let dirty={x0:0,y0:0,x1:0,y1:0,any:false};
     const resize=()=>{const ratio=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(innerWidth*ratio);canvas.height=Math.round(innerHeight*ratio);ctx.setTransform(ratio,0,0,ratio,0,0)};
-    const hide=()=>{ready=false;particles=[];cancelAnimationFrame(frame);frame=0;ctx.clearRect(0,0,innerWidth,innerHeight);dot.classList.remove("is-visible");document.documentElement.classList.remove("custom-cursor-active")};
+    const hide=()=>{ready=false;particles=[];dirty.any=false;cancelAnimationFrame(frame);frame=0;ctx.clearRect(0,0,innerWidth,innerHeight);dot.classList.remove("is-visible");document.documentElement.classList.remove("custom-cursor-active")};
     const draw=(now:number)=>{
-      frame=0;ctx.clearRect(0,0,innerWidth,innerHeight);
+      frame=0;
+      if(dirty.any)ctx.clearRect(dirty.x0-6,dirty.y0-6,dirty.x1-dirty.x0+12,dirty.y1-dirty.y0+12);else ctx.clearRect(0,0,innerWidth,innerHeight);
       particles=particles.filter(p=>now-p.t<850);
+      dirty={x0:Infinity,y0:Infinity,x1:-Infinity,y1:-Infinity,any:particles.length>0};
+      for(const p of particles){if(p.x<dirty.x0)dirty.x0=p.x;if(p.y<dirty.y0)dirty.y0=p.y;if(p.x>dirty.x1)dirty.x1=p.x;if(p.y>dirty.y1)dirty.y1=p.y}
       ctx.fillStyle="#76d4d1";
       particles.forEach(p=>{ctx.globalAlpha=p.a*Math.max(0,1-(now-p.t)/850);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});
       ctx.globalAlpha=1;

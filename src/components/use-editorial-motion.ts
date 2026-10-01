@@ -12,6 +12,8 @@ const TONES: Record<string, [number, number, number]> = {
 
 const smooth = (t: number) => t * t * (3 - 2 * t);
 const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+/** Writes a custom property only when its value changed, so unchanged frames cost no style recalculation. */
+const setVar = (el: HTMLElement, name: string, value: string) => { if (el.style.getPropertyValue(name) !== value) el.style.setProperty(name, value); };
 
 /**
  * All page motion in one place: smooth scrolling, entrance reveals, header state,
@@ -117,7 +119,7 @@ export function useEditorialMotion() {
         lastScroll = y;
       }
       if (y < 40) header?.classList.remove("is-hidden");
-      if (progressBar) progressBar.style.transform = `scaleX(${clamp(y / Math.max(1, root.scrollHeight - innerHeight)).toFixed(4)})`;
+      if (progressBar) { const t = `scaleX(${clamp(y / Math.max(1, root.scrollHeight - innerHeight)).toFixed(3)})`; if (progressBar.style.transform !== t) progressBar.style.transform = t; }
       // Images that "open": pinned ones follow their sticky track, others their entry into view.
       // The first frame primes every element so nothing appears in its end state and then jumps.
       (primed ? live : [...progressed, ...stages, ...parallax]).forEach(el => {
@@ -125,7 +127,7 @@ export function useEditorialMotion() {
         if (el.hasAttribute("data-parallax")) {
           // Images drift inside their frame as they cross the viewport (−1 entering … +1 leaving).
           const d = reduced.matches ? 0 : clamp((innerHeight / 2 - (box.top + box.height / 2)) / innerHeight, -1, 1);
-          el.style.setProperty("--py", `${(d * 7).toFixed(2)}%`);
+          setVar(el, "--py", `${(d * 7).toFixed(2)}%`);
           return;
         }
         if (el.dataset["stage"]) {
@@ -135,23 +137,30 @@ export function useEditorialMotion() {
           const p = clamp(-box.top / Math.max(1, box.height - pinned));
           const active = String(Math.min(count - 1, Math.floor(p * count * 0.999)));
           if (el.dataset["active"] !== active) el.dataset["active"] = active;
-          el.style.setProperty("--p", (reduced.matches ? 0 : p).toFixed(4));
+          setVar(el, "--p", (reduced.matches ? 0 : p).toFixed(4));
           return;
         }
         const mode = el.dataset["progress"];
-        // Cards transform themselves, so measure their untransformed slot via the parent row.
-        const top = mode === "card" && el.parentElement
-          ? el.parentElement.getBoundingClientRect().top + el.offsetTop - el.parentElement.offsetTop
-          : box.top;
+        // Cards measure their own (transformed) box, so a tilted card trails slightly behind the scroll.
+        const top = box.top;
         // "card": ARIO-style boxes hinge up from flat over the lower part of the viewport.
+        // "tree": the trunk fills down to 60% of the viewport; "branch": a row opens from the trunk as it rises.
+        if (mode === "tree" || mode === "branch") {
+          const p = reduced.matches ? 1 : mode === "tree"
+            ? clamp((innerHeight * 0.6 - box.top) / Math.max(1, box.height))
+            : smooth(clamp((innerHeight * 0.92 - box.top) / (innerHeight * 0.4)));
+          setVar(el, "--p", p.toFixed(4));
+          if (mode === "branch") el.classList.toggle("is-lit", box.top + box.height / 2 < innerHeight * 0.6);
+          return;
+        }
         const p = reduced.matches ? 1 : mode === "sticky"
           ? clamp(-box.top / Math.max(1, box.height - innerHeight))
           : mode === "card"
-            ? smooth(clamp((innerHeight * 1.05 - top) / (innerHeight * 0.4)))
+            ? smooth(clamp((innerHeight * 1.02 - top) / (innerHeight * 0.62)))
             : mode === "scrub"
               ? clamp((innerHeight * 0.88 - box.top) / (innerHeight * 0.5 + box.height * 0.6))
               : clamp((innerHeight - box.top) / (innerHeight * 0.9));
-        el.style.setProperty("--p", p.toFixed(4));
+        setVar(el, "--p", p.toFixed(4));
       });
       primed = true;
       if (track) {
