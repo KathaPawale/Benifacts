@@ -1,7 +1,7 @@
 import { useEditorialMotion } from "../components/use-editorial-motion";
 import { GraffitiCursor } from "../components/graffiti-cursor";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, Menu, Minus, Plus, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Building2, HardHat, HeartPulse, Menu, Minus, Monitor, Plane, Plus, Rocket, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Hero background playlist — plays in this order, then loops back to the first clip.
@@ -65,7 +65,7 @@ const faqs: Array<[string, string]> = [
 ];
 
 
-const industries = ["IT services", "Tech startups", "Healthcare", "Contractors & SMEs", "Real estate", "Relocation"];
+const industries = [["IT services", Monitor], ["Tech startups", Rocket], ["Healthcare", HeartPulse], ["Contractors & SMEs", HardHat], ["Real estate", Building2], ["Relocation", Plane]] as const;
 
 const process: Array<[string, string, string]> = [
   ["01", "Assessment", "A written obligation map."],
@@ -404,7 +404,7 @@ function WhoWeHelp() {
         </div>
       </div>
     </div>
-    <div className="shell industries" data-reveal><p>INDUSTRIES WE WORK IN</p><ul>{industries.map((x, i) => <li key={x} style={{ "--i": i } as React.CSSProperties}>{x}</li>)}</ul></div>
+    <div className="industries-band"><div className="shell industries" data-reveal><p>INDUSTRIES WE WORK IN</p><ul>{industries.map(([name, Icon], i) => <li key={name} style={{ "--i": i } as React.CSSProperties}><span className="industry-n">{String(i + 1).padStart(2, "0")}</span><Icon aria-hidden="true" strokeWidth={1.5} /><b>{name}</b></li>)}</ul></div></div>
   </section>;
 }
 
