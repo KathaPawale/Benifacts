@@ -534,6 +534,7 @@ function Index() {
   useEditorialMotion();
   return <div className="site">
     <div className="intro-curtain" aria-hidden="true"><Brand light /></div>
+    <div className="tone-canvas" aria-hidden="true"><div className="tone-noise" /></div>
     <GraffitiCursor />
     <Header />
     <main id="main">

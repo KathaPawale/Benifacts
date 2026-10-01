@@ -54,20 +54,35 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: clip; }
 
 /* ---------- Section tones ----------
-   Each section paints its own solid background and owns its text colours,
-   so copy always sits on the right contrast while sections change as you scroll. */
-[data-tone="paper"], [data-tone="mist"] {
+   Each section declares a tone. Once the motion engine runs, a fixed canvas behind the page
+   crossfades between those tones as you scroll (with soft drifting glows), and all text follows:
+   ink flips between light and dark as the canvas crosses mid-luminance. Without JavaScript,
+   sections keep their own solid colour. */
+@property --ink { syntax: "<color>"; inherits: true; initial-value: #06192a; }
+@property --ink-soft { syntax: "<color>"; inherits: true; initial-value: #4a5e69; }
+@property --line { syntax: "<color>"; inherits: true; initial-value: #06192a29; }
+@property --accent { syntax: "<color>"; inherits: true; initial-value: #007b76; }
+[data-tone="paper"], [data-tone="mist"], html.tone-live.ink-dark [data-tone]:not(.hero) {
   --ink: var(--navy); --ink-soft: oklch(.44 .03 230); --line: color-mix(in oklab, var(--navy) 16%, transparent); --accent: var(--teal);
 }
-[data-tone="navy"], [data-tone="deep"], [data-tone="ocean"] {
+[data-tone="navy"], [data-tone="deep"], [data-tone="ocean"], html.tone-live.ink-light [data-tone]:not(.hero) {
   --ink: var(--paper); --ink-soft: color-mix(in oklab, var(--paper) 70%, transparent); --line: color-mix(in oklab, var(--paper) 16%, transparent); --accent: var(--aqua);
 }
 [data-tone] { color: var(--ink); }
-[data-tone="paper"] { background-color: var(--paper); }
-[data-tone="mist"] { background-color: var(--mist); }
-[data-tone="navy"] { background-color: var(--navy); }
-[data-tone="deep"] { background-color: var(--deep); }
-[data-tone="ocean"] { background-color: rgb(4 62 74); }
+html.tone-live [data-tone].tone-near { transition: --ink .25s linear, --ink-soft .25s linear, --line .25s linear, --accent .25s linear; }
+html:not(.tone-live) [data-tone="paper"] { background-color: var(--paper); }
+html:not(.tone-live) [data-tone="mist"] { background-color: var(--mist); }
+html:not(.tone-live) [data-tone="navy"] { background-color: var(--navy); }
+html:not(.tone-live) [data-tone="deep"] { background-color: var(--deep); }
+html:not(.tone-live) [data-tone="ocean"] { background-color: rgb(4 62 74); }
+
+.tone-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100lvh; z-index: -1; overflow: hidden; pointer-events: none; background: var(--navy); --darkness: 1; contain: strict; }
+.tone-canvas::before, .tone-canvas::after { content: ""; position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; opacity: calc(.06 + var(--darkness) * .34); transition: opacity .6s linear; will-change: transform; }
+.tone-canvas::before { left: -25vmax; top: -30vmax; background: radial-gradient(circle, color-mix(in oklab, var(--teal) 55%, transparent), transparent 62%); animation: ambient-a 38s ease-in-out infinite alternate; }
+.tone-canvas::after { right: -30vmax; bottom: -35vmax; background: radial-gradient(circle, color-mix(in oklab, var(--aqua) 38%, transparent), transparent 62%); animation: ambient-b 46s ease-in-out infinite alternate; }
+@keyframes ambient-a { to { transform: translate3d(18vmax, 22vmax, 0) scale(1.1); } }
+@keyframes ambient-b { to { transform: translate3d(-20vmax, -16vmax, 0) scale(.92); } }
+.tone-noise { position: absolute; inset: 0; z-index: 1; opacity: .05; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
 /* ---------- Reveal ---------- */
 [data-reveal] { transition: opacity .9s var(--ease), transform .9s var(--ease), clip-path 1.2s var(--ease); }

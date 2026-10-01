@@ -1,12 +1,21 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+/** Section background tones (sRGB of the brand oklch tokens in styles.css). */
+const TONES: Record<string, [number, number, number]> = {
+  paper: [245, 252, 250],
+  mist: [227, 244, 243],
+  navy: [6, 25, 37],
+  deep: [1, 13, 23],
+  ocean: [4, 62, 74],
+};
+
 const smooth = (t: number) => t * t * (3 - 2 * t);
 const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 
 /**
  * All page motion in one place: smooth scrolling, entrance reveals, header state,
- * scroll-linked image/box openings and the approach timeline. Section colours are plain CSS.
+ * scroll-linked image/box openings, the approach track and the scroll-driven section tone.
  * Content is fully visible without JavaScript; motion is only layered on after hydration.
  */
 export function useEditorialMotion() {
@@ -14,6 +23,8 @@ export function useEditorialMotion() {
     const root = document.documentElement;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const header = document.querySelector<HTMLElement>(".site-header");
+    const canvas = document.querySelector<HTMLElement>(".tone-canvas");
+    const toned = Array.from(document.querySelectorAll<HTMLElement>("[data-tone]"));
     const hero = document.querySelector<HTMLElement>(".hero");
     const progressBar = document.querySelector<HTMLElement>(".reading-progress");
     const track = document.querySelector<HTMLElement>(".process-track");
@@ -43,12 +54,16 @@ export function useEditorialMotion() {
 
     // --- Layout measurements, recomputed on resize/content changes ---
     let heroBottom = 0;
+    let sections: Array<{ top: number; tone: [number, number, number] }> = [];
     const measure = () => {
+      sections = toned.map(el => ({ top: el.getBoundingClientRect().top + scrollY, tone: TONES[el.dataset["tone"] ?? "paper"] ?? TONES["paper"]! }));
       heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
       queue();
     };
     const resizer = new ResizeObserver(measure);
     resizer.observe(document.body);
+    const nearby = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle("tone-near", entry.isIntersecting)));
+    toned.forEach(el => nearby.observe(el));
     // Scroll-linked pieces only do work while they are on screen.
     const live = new Set<HTMLElement>();
     let primed = false;
@@ -59,11 +74,39 @@ export function useEditorialMotion() {
     [...progressed, ...stages].forEach(el => watcher.observe(el));
 
     let lastScroll = scrollY;
+    let lastTone = "";
+    let inkLight = false;
+    const paintTone = () => {
+      if (!canvas || !sections.length) return;
+      const vh = innerHeight;
+      let [r, g, b] = sections[0]!.tone;
+      // Each boundary crossfades quickly (while it travels from 62% to 46% of the viewport), so the
+      // page never lingers on an in-between grey; text flips exactly at the luminance midpoint.
+      for (let i = 1; i < sections.length; i++) {
+        const t = smooth(clamp((vh * 0.62 - (sections[i]!.top - scrollY)) / (vh * 0.16)));
+        if (t <= 0) break;
+        const [nr, ng, nb] = sections[i]!.tone;
+        r += (nr - r) * t; g += (ng - g) * t; b += (nb - b) * t;
+      }
+      const darkness = 1 - (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+      const value = `rgb(${r.toFixed(1)} ${g.toFixed(1)} ${b.toFixed(1)})`;
+      if (value !== lastTone) {
+        lastTone = value;
+        canvas.style.backgroundColor = value;
+        canvas.style.setProperty("--darkness", darkness.toFixed(3));
+      }
+      if (darkness > 0.53) inkLight = true;
+      else if (darkness < 0.47) inkLight = false;
+      root.classList.toggle("ink-light", inkLight);
+      root.classList.toggle("ink-dark", !inkLight);
+      root.classList.add("tone-live");
+    };
 
     // --- Per-frame scroll work, coalesced into one rAF ---
     let frame = 0;
     const update = () => {
       frame = 0;
+      paintTone();
       const y = scrollY;
       header?.classList.toggle("is-solid", y > 40);
       const delta = y - lastScroll;
@@ -127,8 +170,8 @@ export function useEditorialMotion() {
     return () => {
       lenis?.destroy();
       cancelAnimationFrame(frame);
-      revealer.disconnect(); resizer.disconnect(); watcher.disconnect();
-      root.classList.remove("has-smooth-scroll", "reveal-ready");
+      revealer.disconnect(); resizer.disconnect(); nearby.disconnect(); watcher.disconnect();
+      root.classList.remove("has-smooth-scroll", "reveal-ready", "tone-live", "ink-light", "ink-dark");
       window.removeEventListener("scroll", queue);
       window.removeEventListener("resize", measure);
       window.removeEventListener("load", measure);
