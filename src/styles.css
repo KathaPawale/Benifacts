@@ -1196,6 +1196,54 @@ footer .footer-bottom { margin-top:66px; }
 }
 @media(prefers-reduced-motion:reduce){.looping-services .service-list{will-change:auto}}
 
+.editorial-flow,
+footer {
+  --flow-theme:100%;
+  --flow-paper-base:oklch(.985 .008 180);
+  --flow-navy-base:oklch(.205 .035 240);
+  --flow-navy-soft-base:oklch(.255 .04 235);
+  --flow-mist-base:oklch(.955 .018 190);
+  --flow-teal-base:oklch(.52 .105 190);
+  --flow-aqua-base:oklch(.82 .09 190);
+  --flow-surface:color-mix(in oklab,var(--flow-paper-base) calc(100% - var(--flow-theme)),var(--flow-navy-base) var(--flow-theme));
+  --flow-ink:color-mix(in oklab,var(--flow-navy-base) calc(100% - var(--flow-theme)),var(--flow-paper-base) var(--flow-theme));
+  --paper:var(--flow-ink);
+  --navy:var(--flow-surface);
+  --navy-soft:color-mix(in oklab,var(--flow-mist-base) calc(100% - var(--flow-theme)),var(--flow-navy-soft-base) var(--flow-theme));
+  --mist:var(--flow-surface);
+  --foreground:var(--flow-ink);
+  --background:var(--flow-surface);
+  --muted-foreground:color-mix(in oklab,oklch(.47 .03 230) calc(100% - var(--flow-theme)),var(--flow-aqua-base) var(--flow-theme));
+  --aqua:color-mix(in oklab,var(--flow-teal-base) calc(100% - var(--flow-theme)),var(--flow-aqua-base) var(--flow-theme));
+  --border:color-mix(in oklab,oklch(.83 .02 210) calc(100% - var(--flow-theme)),color-mix(in oklab,var(--flow-navy-base) 78%,var(--flow-paper-base)) var(--flow-theme));
+  --card:var(--navy-soft);
+  --card-foreground:var(--flow-ink);
+  --secondary:var(--navy-soft);
+  --secondary-foreground:var(--flow-ink);
+  --muted:var(--navy-soft);
+  --input:var(--border);
+  --ring:var(--flow-teal-base);
+}
+.editorial-flow { position:relative;isolation:isolate;background:var(--flow-surface);color:var(--flow-ink); }
+.editorial-flow > .section { background:var(--flow-surface);color:var(--flow-ink); }
+.editorial-flow .ticker { color:var(--flow-navy-base); }
+.editorial-flow .founder-panel { background:var(--navy-soft);color:var(--flow-ink); }
+.editorial-flow .testimonial { background:var(--navy-soft);color:var(--flow-ink); }
+.editorial-flow .faq-columns .faq-row { border-color:var(--border); }
+.editorial-flow .faq-columns .faq-row button { color:var(--flow-ink); }
+.editorial-flow .faq-columns .faq-answer p { color:var(--muted-foreground); }
+.editorial-flow .text-action.dark { color:var(--flow-ink);border-color:var(--aqua); }
+footer { background:var(--flow-surface);color:var(--flow-ink); }
+.editorial-flow::before {
+  content:"";position:fixed;inset:0;z-index:10;pointer-events:none;opacity:0;
+  background:radial-gradient(440px circle at var(--cursor-x,50%) var(--cursor-y,50%),color-mix(in oklab,var(--aqua) 22%,transparent),transparent 70%);
+  mix-blend-mode:soft-light;transition:opacity .35s ease;
+}
+.editorial-flow.is-theme-active::before { opacity:.34; }
+@media(prefers-reduced-motion:reduce) {
+  .editorial-flow::before { display:none; }
+}
+
 /* Decorative layers are never interactive, including during motion and stacking changes.
    Apply this shared marker to future backgrounds instead of raising individual controls. */
 [data-decorative], [data-decorative] *, [data-decorative]::before, [data-decorative]::after { pointer-events:none!important; }
