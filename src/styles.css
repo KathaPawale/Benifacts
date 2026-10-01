@@ -26,7 +26,7 @@
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --gutter: clamp(20px, 5.6vw, 80px);
-  --section-space: clamp(20px, 2vw, 28px);
+  --section-space: clamp(14px, 1.4vw, 20px);
 }
 
 @font-face { font-family: "Benifacts Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/manrope-400.woff") format("woff"); }
@@ -155,8 +155,8 @@ p { margin: 0; }
 figure { margin: 0; }
 figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fineprint { font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
-.label { margin: 0 0 26px; font: 600 11.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-.centered-head { max-width: 1000px; margin: 0 auto clamp(28px, 3vw, 44px); text-align: center; }
+.label { margin: 0 0 14px; font: 600 11.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.centered-head { max-width: 1000px; margin: 0 auto clamp(20px, 2.2vw, 32px); text-align: center; }
 .centered-head h2 { font-weight: 600; }
 .centered-head > p:not(.label) { max-width: 56ch; margin: 22px auto 0; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
 .centered-head .text-link { margin-top: 28px; }
@@ -236,25 +236,29 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .why-mark { grid-column: 1 / span 1; font: italic 400 48px/1 var(--serif); color: var(--accent); }
 .why-intro h3 { grid-column: 2 / span 6; font-size: clamp(22px, 2.2vw, 32px); line-height: 1.12; letter-spacing: -.03em; font-weight: 600; }
 .why-intro p { grid-column: 9 / span 4; align-self: end; font-size: 16px; line-height: 1.75; color: var(--ink-soft); }
-.founder { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: center; }
-.founder-portrait { grid-column: 1 / span 6; position: relative; aspect-ratio: 4 / 4.4; overflow: hidden; --q: min(1, calc(var(--p, 1) * 1.25)); clip-path: inset(calc((1 - var(--q)) * 14%) calc((1 - var(--q)) * 18%) 0 calc((1 - var(--q)) * 18%)); background: linear-gradient(180deg, #e6ebec, #cfd7d9); will-change: clip-path; }
-.founder-portrait-inner { width: 100%; height: 100%; }
-.founder-portrait img { object-fit: contain; object-position: bottom center; transform: scale(calc(1.18 - .18 * var(--q))); transform-origin: 50% 100%; }
-.founder-bio .button-primary { margin-top: 30px; }
-.founder-bio > * { transition: opacity .9s var(--ease), transform 1s var(--ease); }
-.founder-bio > :nth-child(2) { transition-delay: .08s; }
-.founder-bio > :nth-child(3), .founder-bio > :nth-child(4) { transition-delay: .16s; }
-.founder-bio > :nth-child(5) { transition-delay: .24s; }
-.founder-bio > :nth-child(n + 6) { transition-delay: .32s; }
+/* Founder: ARIO partner-style reveal — a small card in the corner grows to fill the screen while
+   pinned, the portrait scales up inside it, and the title rises in at the end. */
+.founder-stage { position: relative; height: 185vh; }
+.founder-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.founder-frame { position: absolute; inset: 0; margin: 0; overflow: hidden; --q: min(1, calc(var(--p, 1) * 1.35));
+  clip-path: inset(calc((1 - var(--q)) * 50%) calc((1 - var(--q)) * 5%) calc((1 - var(--q)) * 9%) calc((1 - var(--q)) * 60%));
+  background: radial-gradient(70% 90% at 50% 35%, #e9eff0 0%, #c7d4d7 55%, #8fa5ab 100%); will-change: clip-path; }
+.founder-frame::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(0deg, rgb(6 25 37 / .85), transparent); pointer-events: none; }
+.founder-frame img { position: absolute; left: 50%; bottom: 0; width: auto; height: 94%; max-width: none; object-fit: contain; transform-origin: 50% 100%;
+  transform: translate3d(calc(-50% + (1 - var(--q)) * 27.5vw), calc((1 - var(--q)) * -9vh), 0) scale(calc(.44 + .56 * var(--q))); will-change: transform; }
+.founder-caption { position: absolute; right: var(--gutter); bottom: clamp(28px, 6vh, 64px); z-index: 1; text-align: right; color: var(--paper);
+  opacity: clamp(0, calc(var(--p, 1) * 4 - 2.6), 1); transform: translate3d(0, calc((1 - min(1, var(--p, 1) * 1.6)) * 40px), 0); }
+.founder-caption .founder-role { margin: 0; font-size: clamp(32px, 4.6vw, 72px); font-weight: 700; line-height: .92; letter-spacing: -.04em; text-transform: uppercase; }
+.founder-caption .founder-practice { margin-top: 12px; font: 600 12px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--aqua); }
+.founder-bio { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); column-gap: 56px; align-items: end; padding-block: clamp(28px, 3vw, 44px) var(--section-space); }
+.founder-bio ul { margin: 0; padding: 0; list-style: none; }
+.founder-bio li { position: relative; padding: 14px 0 14px 24px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.6; color: color-mix(in oklab, var(--ink) 86%, transparent); }
+.founder-bio li::before { content: ""; position: absolute; left: 0; top: 26px; width: 8px; height: 1px; background: var(--accent); }
+.founder-bio small { display: block; margin-bottom: 22px; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+.founder-bio li { transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--li, 0) * 80ms); }
+.reveal-ready .founder-bio:not(.is-in) li, .reveal-ready .founder-bio:not(.is-in) .founder-bio-foot { opacity: 0; transform: translate3d(-24px, 0, 0); }
+.founder-bio-foot { transition: opacity .8s var(--ease) .35s, transform .9s var(--ease) .35s; }
 .reveal-ready .founder-bio[data-reveal]:not(.is-in) { opacity: 1; transform: none; }
-.reveal-ready .founder-bio:not(.is-in) > * { opacity: 0; transform: translate3d(0, 24px, 0); }
-.founder-bio { grid-column: 8 / span 5; align-self: center; }
-.founder-bio .founder-role { margin: 0; font-size: clamp(30px, 3vw, 44px); font-weight: 700; line-height: 1; letter-spacing: -.035em; }
-.founder-practice { margin: 14px 0 26px; padding-bottom: 22px; border-bottom: 1px solid var(--line); font-size: clamp(16px, 1.3vw, 19px); line-height: 1.45; color: var(--accent); }
-.founder-bio ul { margin: 0 0 24px; padding: 0; list-style: none; }
-.founder-bio li { position: relative; padding: 15px 0 15px 24px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.6; color: color-mix(in oklab, var(--ink) 86%, transparent); }
-.founder-bio li::before { content: ""; position: absolute; left: 0; top: 27px; width: 8px; height: 1px; background: var(--accent); }
-.founder-bio small { display: block; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
 
 /* ---------- 3. Expertise ---------- */
 .practice-stack { margin: 0; padding: 0; list-style: none; }
@@ -366,6 +370,13 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .industries li:hover .industry-n { color: color-mix(in oklab, var(--navy) 70%, transparent); }
 .reveal-ready .industries:not(.is-in) li { opacity: 0; transform: translate3d(0, 18px, 0); }
 
+/* ---------- Continuous scroll motion ---------- */
+/* Photos drift inside their frames as they cross the screen. */
+img[data-parallax] { translate: 0 var(--py, 0); scale: 1.16; }
+.approach-img { overflow: hidden; }
+/* Statements light up word by word as you read down the page. */
+.scrub > span { opacity: clamp(.16, calc(var(--p, 1) * var(--n) * 1.2 - var(--w)), 1); }
+
 /* ---------- Site-wide entrance choreography ---------- */
 /* Section heads: label, headline and intro arrive one after another */
 .reveal-ready .centered-head[data-reveal]:not(.is-in) { opacity: 1; transform: none; }
@@ -374,6 +385,8 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .centered-head > :nth-child(3) { transition-delay: .2s; }
 .centered-head > :nth-child(4) { transition-delay: .3s; }
 .reveal-ready .centered-head:not(.is-in) > * { opacity: 0; transform: translate3d(0, 26px, 0); }
+.centered-head > h2 { transition: opacity .9s var(--ease) .1s, transform 1.1s var(--ease) .1s, clip-path 1.1s var(--ease) .1s; }
+.reveal-ready .centered-head:not(.is-in) > h2 { transform: translate3d(0, 60px, 0) skewY(2deg); clip-path: inset(0 0 100% 0); }
 /* Cards are dealt in sequence */
 @keyframes deal-in { from { opacity: 0; transform: translate3d(0, 44px, 0) scale(.97); } }
 /* Insights: card rises, its photo opens from the top and settles, the crosshair draws, then the text follows */
@@ -548,14 +561,16 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .filing-cards-title { grid-column: 1 / -1; }
   .filing-card:nth-child(n) { translate: none; }
   .filing-cards { padding-bottom: 0; }
-  .why-intro { margin-top: 28px; }
-  .why-intro, .founder, .approach-foot, .case-spread, .contact-grid, .footer-top { grid-template-columns: minmax(0, 1fr); }
-  .why-intro > *, .founder > *, .approach-foot > *, .case-spread > *, .contact-grid > *, .footer-top > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .why-intro { margin-top: 8px; }
+  .why-intro, .approach-foot, .case-spread, .contact-grid, .footer-top { grid-template-columns: minmax(0, 1fr); }
+  .why-intro > *, .approach-foot > *, .case-spread > *, .contact-grid > *, .footer-top > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
   .why-intro { row-gap: 20px; }
   .why-intro p { align-self: start; }
-  .founder { row-gap: 40px; }
-  .founder-portrait { max-width: 560px; width: 100%; }
-  .founder-bio { padding-bottom: 0; }
+  .founder-bio { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .founder-stage { height: 160vh; }
+  .founder-frame { clip-path: inset(calc((1 - var(--q)) * 46%) calc((1 - var(--q)) * 6%) calc((1 - var(--q)) * 10%) calc((1 - var(--q)) * 40%)); }
+  .founder-frame img { height: 72%; transform: translate3d(calc(-50% + (1 - var(--q)) * 17vw), calc((1 - var(--q)) * -10vh), 0) scale(calc(.6 + .4 * var(--q))); }
+  .founder-caption { left: var(--gutter); }
   .practice { position: relative; top: auto; margin-bottom: 24px; }
   .practice-card { grid-template-columns: minmax(0, 1fr); min-height: 0; box-shadow: none; }
   .practice-image { order: -1; aspect-ratio: 16 / 10; }

@@ -31,6 +31,7 @@ export function useEditorialMotion() {
     const steps = Array.from(document.querySelectorAll<HTMLElement>(".process-step"));
     const progressed = Array.from(document.querySelectorAll<HTMLElement>("[data-progress]"));
     const stages = Array.from(document.querySelectorAll<HTMLElement>("[data-stage]"));
+    const parallax = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
 
     // --- Smooth scrolling (skipped entirely for reduced motion) ---
     let lenis: Lenis | undefined;
@@ -71,7 +72,7 @@ export function useEditorialMotion() {
       entries.forEach(entry => entry.isIntersecting ? live.add(entry.target as HTMLElement) : live.delete(entry.target as HTMLElement));
       queue();
     });
-    [...progressed, ...stages].forEach(el => watcher.observe(el));
+    [...progressed, ...stages, ...parallax].forEach(el => watcher.observe(el));
 
     let lastScroll = scrollY;
     let lastTone = "";
@@ -119,8 +120,14 @@ export function useEditorialMotion() {
       if (progressBar) progressBar.style.transform = `scaleX(${clamp(y / Math.max(1, root.scrollHeight - innerHeight)).toFixed(4)})`;
       // Images that "open": pinned ones follow their sticky track, others their entry into view.
       // The first frame primes every element so nothing appears in its end state and then jumps.
-      (primed ? live : [...progressed, ...stages]).forEach(el => {
+      (primed ? live : [...progressed, ...stages, ...parallax]).forEach(el => {
         const box = el.getBoundingClientRect();
+        if (el.hasAttribute("data-parallax")) {
+          // Images drift inside their frame as they cross the viewport (−1 entering … +1 leaving).
+          const d = reduced.matches ? 0 : clamp((innerHeight / 2 - (box.top + box.height / 2)) / innerHeight, -1, 1);
+          el.style.setProperty("--py", `${(d * 7).toFixed(2)}%`);
+          return;
+        }
         if (el.dataset["stage"]) {
           const count = Number(el.dataset["stage"]) || 1;
           // Progress runs while the pinned child stays stuck (its height may be less than the viewport).
@@ -141,7 +148,9 @@ export function useEditorialMotion() {
           ? clamp(-box.top / Math.max(1, box.height - innerHeight))
           : mode === "card"
             ? smooth(clamp((innerHeight * 1.05 - top) / (innerHeight * 0.4)))
-            : clamp((innerHeight - box.top) / (innerHeight * 0.9));
+            : mode === "scrub"
+              ? clamp((innerHeight * 0.88 - box.top) / (innerHeight * 0.5 + box.height * 0.6))
+              : clamp((innerHeight - box.top) / (innerHeight * 0.9));
         el.style.setProperty("--p", p.toFixed(4));
       });
       primed = true;

@@ -122,7 +122,13 @@ function SiteImage({ src, ...rest }: React.ImgHTMLAttributes<HTMLImageElement> &
 
 function StockImage({ name, alt, sizes = "(max-width: 900px) 100vw, 50vw" }: { name: string; alt: string; sizes?: string }) {
   const { src, srcSet } = stock(name);
-  return <img src={src} srcSet={srcSet} sizes={sizes} width={960} height={640} alt={alt} loading="lazy" decoding="async" />;
+  return <img src={src} srcSet={srcSet} sizes={sizes} width={960} height={640} alt={alt} loading="lazy" decoding="async" data-parallax />;
+}
+
+/** Text whose words light up one by one as it scrolls through the viewport. */
+function ScrubText({ text }: { text: string }) {
+  const words = text.split(" ");
+  return <span className="scrub" data-progress="scrub" style={{ "--n": words.length } as React.CSSProperties}>{words.map((w, i) => <span key={i} style={{ "--w": i } as React.CSSProperties}>{w}{i < words.length - 1 ? " " : ""}</span>)}</span>;
 }
 
 /** Small centred section label, ARIO-style. */
@@ -314,18 +320,18 @@ function Hero() {
 
 /* 2 — Founder spotlight (replaces the opening image), then Why Benifacts. */
 function WhyBenifacts() {
-  return <><section className="founder-spotlight section-pad" data-tone="navy" aria-labelledby="founder-title">
-      <div className="shell founder">
-        <figure className="founder-portrait" data-progress="enter">
-          <div className="founder-portrait-inner"><SiteImage src={founderImage} alt="Founder and Lead CPA of Benifacts" width={1254} height={1254} loading="eager" decoding="async" /></div>
-        </figure>
-        <div className="founder-bio" data-reveal>
-          <h2 id="founder-title" className="founder-role">Founder &amp; Lead CPA</h2>
-          <p className="founder-practice">Cross-border US international tax &amp; advisory</p>
-          <ul><li>Licensed Certified Public Accountant (CPA) — jurisdiction and licence number to be confirmed and displayed here.</li><li>Specialisation in US international filings: Forms 5471, 5472, FBAR, 8938, and related reporting.</li><li>Experience with inbound, outbound, and expat cross-border engagements.</li><li>Member of professional body — details to be confirmed.</li></ul>
-          <small>Specific name, credentials, and licence details will appear here once confirmed. We do not publish unverified credentials.</small>
-          <a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a>
+  return <><section className="founder-spotlight" data-tone="navy" aria-labelledby="founder-title">
+      <div className="founder-stage" data-progress="sticky">
+        <div className="founder-pin">
+          <figure className="founder-frame">
+            <SiteImage src={founderImage} alt="Founder and Lead CPA of Benifacts" width={1254} height={1254} loading="eager" decoding="async" />
+            <figcaption className="founder-caption"><h2 id="founder-title" className="founder-role">Founder &amp; Lead CPA</h2><p className="founder-practice">Cross-border US international tax &amp; advisory</p></figcaption>
+          </figure>
         </div>
+      </div>
+      <div className="shell founder-bio" data-reveal>
+        <ul><li>Licensed Certified Public Accountant (CPA) — jurisdiction and licence number to be confirmed and displayed here.</li><li>Specialisation in US international filings: Forms 5471, 5472, FBAR, 8938, and related reporting.</li><li>Experience with inbound, outbound, and expat cross-border engagements.</li><li>Member of professional body — details to be confirmed.</li></ul>
+        <div className="founder-bio-foot"><small>Specific name, credentials, and licence details will appear here once confirmed. We do not publish unverified credentials.</small><a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a></div>
       </div>
     </section>
     <section id="credibility" className="why" data-tone="paper" aria-labelledby="why-title">
@@ -342,7 +348,7 @@ function WhyBenifacts() {
       </div>
       <div className="why-intro" data-reveal>
         <span className="why-mark" aria-hidden="true">B.</span>
-        <h3>Simplifying complexity for businesses that don’t stop at the border.</h3>
+        <h3><ScrubText text="Simplifying complexity for businesses that don’t stop at the border." /></h3>
         <p>Benifacts is a Coral Springs, Florida accounting and advisory firm built around one problem: US compliance for people and companies with a presence in more than one country. We connect precise accounting with thoughtful advisory—translating financial complexity into clear, practical direction.</p>
       </div>
     </div>
@@ -425,7 +431,7 @@ function Approach() {
         </li>)}</ol>
       </div>
       <div className="approach-foot">
-        <figure className="approach-visual" data-reveal="image"><StockImage name="approach-consultation" alt="Two women in conversation at a table by a window" sizes="(max-width: 900px) 100vw, 50vw" /><figcaption>FIG. 01 &nbsp;/&nbsp; THE PEOPLE BEHIND THE WORK</figcaption></figure>
+        <figure className="approach-visual" data-reveal="image"><div className="approach-img"><StockImage name="approach-consultation" alt="Two women in conversation at a table by a window" sizes="(max-width: 900px) 100vw, 50vw" /></div><figcaption>FIG. 01 &nbsp;/&nbsp; THE PEOPLE BEHIND THE WORK</figcaption></figure>
         <a className="button-primary" href="#contact" data-reveal>Work with Benifacts <ArrowUpRight aria-hidden="true" /></a>
       </div>
     </div>
@@ -454,7 +460,7 @@ function Testimonial() {
     <figure className="shell quote" data-reveal>
       <Label>05 · Client testimonial</Label>
       <span className="quote-mark" aria-hidden="true">“</span>
-      <blockquote><p>Benifacts untangled three years of cross-border filings we had been avoiding. The scope was clear, the calendar was clear, and we finally knew what was owed and why.</p></blockquote>
+      <blockquote><p><ScrubText text="Benifacts untangled three years of cross-border filings we had been avoiding. The scope was clear, the calendar was clear, and we finally knew what was owed and why." /></p></blockquote>
       <figcaption>Placeholder — client name, role and company will be added once publication consent is confirmed.</figcaption>
     </figure>
   </section>;
