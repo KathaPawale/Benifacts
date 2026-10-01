@@ -731,8 +731,11 @@ select {
 .svc-back:hover { color: var(--aqua); }
 .svc-hero h1 { font-size: clamp(34px, 4.6vw, 62px); font-weight: 600; line-height: 1.06; letter-spacing: -.035em; text-wrap: balance; }
 .svc-hero p:not(.label) { max-width: 62ch; margin: 22px 0 30px; font-size: 17px; line-height: 1.7; color: color-mix(in oklab, var(--paper) 80%, transparent); }
-.svc-overview .centered-head, .svc-block-head { margin-bottom: clamp(24px, 3vw, 40px); }
-.svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 0; padding: 0; list-style: none; }
+.svc-overview .centered-head, .svc-block-head { margin-bottom: clamp(18px, 2vw, 28px); }
+.svc-overview { contain: none; }
+.svc-grid { --cols: 3; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 0; padding: 0; list-style: none; }
+.svc-grid[data-count="4"] { --cols: 4; }
+.svc-grid > li { flex: 0 0 calc((100% - (var(--cols) - 1) * 20px) / var(--cols)); }
 .svc-card { position: relative; padding: 56px 24px 26px; background: var(--navy); --ink: var(--paper); --ink-soft: color-mix(in oklab, var(--paper) 72%, transparent); --line: color-mix(in oklab, var(--paper) 22%, transparent); --accent: var(--aqua); color: var(--ink); box-shadow: 0 30px 60px -36px rgb(6 25 37 / .55); }
 .svc-n { font: 600 11px/1 var(--sans); letter-spacing: .14em; color: var(--accent); }
 .svc-card h3 { margin-top: 12px; font-size: 20px; font-weight: 600; line-height: 1.2; letter-spacing: -.02em; }
@@ -752,22 +755,26 @@ select {
 .svc-steps i { position: absolute; left: 0; top: 17px; font: 600 11px/1 var(--sans); font-style: normal; letter-spacing: .14em; color: var(--accent); }
 .svc-included { margin-top: clamp(28px, 3.4vw, 48px); }
 .svc-included ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin: 18px 0 0; padding: 0; list-style: none; }
-.svc-included li { padding: 18px 18px 20px; background: color-mix(in oklab, white 70%, var(--paper)); border: 1px solid var(--line); }
-/* Compact call-to-action: a small strip, text left, button right */
-.svc-cta { padding-block: clamp(28px, 3.4vw, 44px); color: var(--paper); }
-.svc-cta-row { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 620px; }
-.svc-cta h2 { font-size: clamp(20px, 2vw, 28px); line-height: 1.15; }
-.svc-cta p { max-width: 60ch; margin-top: 8px; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
-.svc-cta .button-primary { min-height: 46px; padding: 0 20px; font-size: 13.5px; }
-.svc-others { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.svc-included li { padding: 18px 18px 20px; border: 1px solid var(--line); }
+/* Schedule a call: a small card on the left, other services beside it */
+.svc-cta { padding-block: clamp(20px, 2.4vw, 32px); color: var(--paper); }
+.svc-cta .shell { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
+.svc-cta-row { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px 22px; border: 1px solid var(--line); background: color-mix(in oklab, var(--navy) 45%, transparent); }
+.svc-cta h2 { font-size: 19px; line-height: 1.2; letter-spacing: -.02em; }
+.svc-cta p { margin-top: 6px; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+.svc-cta .button-primary { min-height: 40px; padding: 0 16px; gap: 10px; font-size: 13px; }
+.svc-cta .button-primary svg { width: 15px; height: 15px; }
+.svc-others { display: flex; flex-wrap: wrap; gap: 8px 10px; }
+.svc-others small { flex: 0 0 100%; margin-bottom: 4px; font: 600 11px/1 var(--sans); letter-spacing: .16em; color: var(--accent); }
 .svc-others a { padding: 6px 12px; border: 1px solid var(--line); font-size: 13px; transition: background .3s, color .3s, border-color .3s; }
 .svc-others a:hover { background: var(--aqua); border-color: var(--aqua); color: var(--navy); }
 
 /* Formatting: each part opens with its title beside its introduction, then two framed columns */
-.svc-block-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(28px, 5vw, 72px); align-items: end; max-width: none; padding-bottom: clamp(20px, 2.4vw, 32px); border-bottom: 1px solid var(--line); }
+.svc-block-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(28px, 5vw, 72px); align-items: start; max-width: none; padding-bottom: clamp(20px, 2.4vw, 32px); border-bottom: 1px solid var(--line); }
 .svc-block-head .label { grid-column: 1 / -1; }
 .svc-block-head p:not(.label) { margin-top: 0; }
-.svc-col { padding: clamp(20px, 2.4vw, 32px); background: color-mix(in oklab, white 55%, transparent); border: 1px solid var(--line); }
+.svc-col, .svc-included li { --ink: var(--navy); --ink-soft: oklch(.44 .03 230); --line: color-mix(in oklab, var(--navy) 16%, transparent); --accent: var(--teal); color: var(--ink); background: #fff; }
+.svc-col { padding: clamp(20px, 2.4vw, 32px); border: 1px solid var(--line); box-shadow: 0 24px 50px -40px rgb(6 25 37 / .5); }
 .svc-col .svc-list li:last-child { border-bottom: 0; padding-bottom: 0; }
 .svc-included li { position: relative; transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s; }
 .svc-included li:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 22px 40px -28px rgb(6 25 37 / .5); }
@@ -782,7 +789,7 @@ select {
 .svc-hero .shell > :nth-child(5) { animation-delay: .36s; }
 /* Overview cards hinge open like the homepage filing boxes */
 .svc-grid { perspective: 1600px; }
-.svc-card { --q: var(--p, 1); transform-origin: 50% 100%; transform: translate3d(0, calc((1 - var(--q)) * 120px), 0) rotateX(calc((1 - var(--q)) * 68deg)); will-change: transform; }
+.svc-card { --q: var(--p, 1); transform-origin: 50% 100%; transform: translate3d(0, calc((1 - var(--q)) * 60px), 0) rotateX(calc((1 - var(--q)) * 68deg)); will-change: transform; }
 .svc-card .cross { transform: scaleX(var(--q)); transform-origin: 50% 50%; }
 .svc-card :is(.svc-n, h3, p) { opacity: clamp(0, calc(var(--q) * 2.5 - 1.5), 1); }
 /* Title underline draws in; list rows and tiles arrive one after another */
@@ -795,7 +802,85 @@ select {
 .reveal-ready :is(.svc-col, .svc-included)[data-reveal]:not(.is-in) { opacity: 1; transform: none; }
 .svc-included[data-reveal].is-in li { transition-delay: calc(var(--li, 0) * 80ms), calc(var(--li, 0) * 80ms), 0s, 0s; }
 @media (max-width: 900px) {
-  .svc-grid, .svc-cols, .svc-block-head { grid-template-columns: minmax(0, 1fr); }
+  .svc-cols, .svc-block-head, .svc-cta .shell { grid-template-columns: minmax(0, 1fr); }
+  .svc-grid, .svc-grid[data-count="4"] { --cols: 1; }
   .svc-block-head { row-gap: 12px; }
   .svc-hero { padding-top: 120px; }
 }
+
+/* Service pages: the banner and the call strip keep their own dark surface and light text,
+   so they stay readable while the page background blends between tones. */
+.svc-hero, .svc-cta { --ink: var(--paper) !important; --ink-soft: color-mix(in oklab, var(--paper) 72%, transparent) !important; --line: color-mix(in oklab, var(--paper) 18%, transparent) !important; --accent: var(--aqua) !important; color: var(--paper); }
+.svc-hero { background-color: var(--navy); }
+.svc-cta { background-color: rgb(5 58 92); }
+
+/* ---------- Service pages: solid light surfaces, three rotating layouts, medium motion ---------- */
+.svc-overview, .svc-block { --ink: var(--navy) !important; --ink-soft: oklch(.44 .03 230) !important; --line: color-mix(in oklab, var(--navy) 16%, transparent) !important; --accent: var(--teal) !important; color: var(--navy); background-color: var(--paper); }
+.svc-block[data-tone="mist"] { background-color: var(--mist); }
+.svc-block { padding-block: clamp(36px, 4.5vw, 64px); }
+.svc-overview { padding-block: clamp(32px, 4vw, 56px); }
+.svc-block-head h2 { font-weight: 600; letter-spacing: -.035em; }
+.svc-col h3 { display: flex; align-items: center; gap: 12px; }
+.svc-col h3::before { content: ""; width: 22px; height: 2px; background: var(--accent); }
+
+/* Layout A — two framed columns that slide in from each side */
+.reveal-ready .svc-v0 .svc-col[data-reveal]:not(.is-in) { opacity: 0; transform: translate3d(-44px, 0, 0); }
+.reveal-ready .svc-v0 .svc-col[data-reveal]:last-child:not(.is-in) { transform: translate3d(44px, 0, 0); }
+
+/* Layout B — reasons as a row of cards, approach as a horizontal step line */
+.svc-v1 .svc-cols { grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3vw, 40px); }
+.svc-v1 .svc-col { padding: 0; background: none; border: 0; box-shadow: none; }
+.svc-v1 .svc-col h3 { border-bottom: 0; padding-bottom: 0; margin-bottom: 16px; }
+.svc-v1 .svc-col .svc-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.svc-v1 .svc-col .svc-list li { padding: 24px 20px 20px; background: #fff; border: 1px solid var(--line); box-shadow: 0 22px 44px -38px rgb(6 25 37 / .5); }
+.svc-v1 .svc-col .svc-list:not(.svc-steps) li::before { content: ""; inset: 0 0 auto 0; width: 100%; height: 3px; background: var(--accent); }
+.svc-v1 .svc-col .svc-steps li { padding-top: 62px; }
+.svc-v1 .svc-steps i { left: 20px; top: 18px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; letter-spacing: .04em; }
+.svc-v1 .svc-steps li::after { content: ""; position: absolute; left: 60px; right: -17px; top: 33px; height: 1px; background: var(--accent); transform-origin: left; transition: transform .7s var(--ease); transition-delay: calc(.25s + var(--li, 0) * 120ms); }
+.svc-v1 .svc-steps li:last-child::after { display: none; }
+.reveal-ready .svc-v1 [data-reveal]:not(.is-in) .svc-list li { opacity: 0; transform: translate3d(0, 28px, 0) scale(.96); }
+.reveal-ready .svc-v1 [data-reveal]:not(.is-in) .svc-steps li::after { transform: scaleX(0); }
+
+/* Layout C — centred title, dark approach panel with a timeline on the left, reasons on the right */
+.svc-v2 .svc-block-head { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: 14px; text-align: center; }
+.svc-v2 .svc-block-head p:not(.label) { max-width: 70ch; }
+.svc-v2 .svc-cols { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(20px, 3vw, 40px); }
+.svc-v2 .svc-col:last-child { order: -1; --ink: var(--paper) !important; --ink-soft: color-mix(in oklab, var(--paper) 72%, transparent) !important; --line: color-mix(in oklab, var(--paper) 18%, transparent) !important; --accent: var(--aqua) !important; color: var(--paper); background: var(--navy); border-color: var(--navy); }
+.svc-v2 .svc-steps { position: relative; }
+.svc-v2 .svc-steps::before { content: ""; position: absolute; left: 12px; top: 22px; bottom: 22px; width: 1px; background: var(--accent); transform-origin: top; transition: transform 1.1s var(--ease) .2s; }
+.svc-v2 .svc-col .svc-steps li { border-bottom: 0; padding: 14px 0 14px 46px; }
+.svc-v2 .svc-steps i { top: 14px; display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; border: 1px solid var(--accent); background: var(--navy); font-size: 10px; letter-spacing: 0; }
+.svc-v2 .svc-col:first-child .svc-list li::before { content: "✓"; font-weight: 700; }
+.reveal-ready .svc-v2 .svc-col[data-reveal]:last-child:not(.is-in) { clip-path: inset(0 100% 0 0); }
+.svc-v2 .svc-col:last-child { clip-path: inset(0 0 0 0); }
+.reveal-ready .svc-v2 [data-reveal]:not(.is-in) .svc-steps::before { transform: scaleY(0); }
+.reveal-ready .svc-v2 .svc-col[data-reveal]:first-child:not(.is-in) { opacity: 0; transform: translate3d(0, 32px, 0); }
+
+/* Included-service tiles: numbered, with an accent edge that grows on hover */
+.svc-included ul { counter-reset: tile; }
+.svc-included li { counter-increment: tile; padding-top: 44px; overflow: hidden; }
+.svc-included li::before { content: counter(tile, decimal-leading-zero); position: absolute; left: 18px; top: 16px; font: 600 11px/1 var(--sans); letter-spacing: .14em; color: var(--accent); }
+.svc-included li::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
+.svc-included li:hover::after { transform: scaleX(1); }
+
+@media (max-width: 900px) {
+  .svc-v2 .svc-cols { grid-template-columns: minmax(0, 1fr); }
+  .svc-v1 .svc-steps li::after { display: none; }
+}
+
+/* ---------- Service pages: plain text formats instead of boxes ---------- */
+/* Layout A — simple editorial: each list reads straight down, no frames */
+.svc-v0 .svc-col { padding: 0; background: none; border: 0; box-shadow: none; }
+.svc-v0 .svc-col .svc-list li { padding-block: 16px; }
+/* Layout B — reasons as a plain paragraph list, approach as numbered steps in text */
+.svc-v1 .svc-col .svc-list li { padding: 18px 0 0; background: none; border: 0; border-top: 2px solid var(--accent); box-shadow: none; }
+.svc-v1 .svc-col .svc-list:not(.svc-steps) li::before { display: none; }
+.svc-v1 .svc-col .svc-list { gap: 24px 32px; }
+.svc-v1 .svc-col .svc-steps li { padding-top: 54px; border-top: 0; }
+/* Included services: alternate between tiles and a plain two-column list */
+.svc-included.is-plain ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+.svc-included.is-plain li { padding: 16px 0 16px 44px; background: none; border: 0; border-bottom: 1px solid var(--line); box-shadow: none; }
+.svc-included.is-plain li::before { left: 0; top: 19px; }
+.svc-included.is-plain li::after { display: none; }
+.svc-included.is-plain li:hover { transform: none; box-shadow: none; }
+@media (max-width: 900px) { .svc-included.is-plain ul { grid-template-columns: minmax(0, 1fr); } }

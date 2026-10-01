@@ -30,31 +30,32 @@ function ServicePage() {
   const { slug } = Route.useParams();
   const service = serviceBySlug(slug)!;
   const single = service.blocks.length === 1;
+  // Rotate three layouts so neighbouring parts, and neighbouring services, do not look the same.
+  const offset = services.indexOf(service);
   return <div className="site">
     <div className="tone-canvas" aria-hidden="true"><div className="tone-noise" /></div>
     <GraffitiCursor />
     <Header home={false} />
     <main id="main">
-      <section className="svc-hero" data-tone="navy" aria-labelledby="svc-title">
+      <section className="svc-hero" id="top" data-tone="navy" aria-labelledby="svc-title">
         <div className="shell">
           <a className="svc-back" href="/#expertise">← All services</a>
           <Label>{service.label}</Label>
           <h1 id="svc-title">{service.title}</h1>
           <p>{service.tagline}</p>
-          <a className="button-primary" href="/#contact">Schedule a call <ArrowUpRight aria-hidden="true" /></a>
         </div>
       </section>
 
       <section className="svc-overview section-pad" data-tone="paper" aria-labelledby="svc-overview-title">
         <div className="shell">
           <div className="centered-head" data-reveal><h2 id="svc-overview-title">{service.overviewTitle}</h2></div>
-          <ul className="svc-grid">{service.overview.map(([title, body], i) => <li className="svc-card" key={title} data-progress="card">
+          <ul className="svc-grid" data-count={service.overview.length}>{service.overview.map(([title, body], i) => <li className="svc-card" key={title} data-progress="card">
             <Cross /><span className="svc-n">{String(i + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{body}</p>
           </li>)}</ul>
         </div>
       </section>
 
-      {service.blocks.map((block, n) => <section className="svc-block section-pad" key={block.title} data-tone={n % 2 ? "paper" : "mist"} aria-label={block.title}>
+      {service.blocks.map((block, n) => <section className={`svc-block svc-v${(offset + n) % 3} section-pad`} key={block.title} data-tone={n % 2 ? "paper" : "mist"} aria-label={block.title}>
         <div className="shell">
           <div className="svc-block-head" data-reveal>
             {!single && <Label>{String(n + 1).padStart(2, "0")} / {String(service.blocks.length).padStart(2, "0")}</Label>}
@@ -71,7 +72,7 @@ function ServicePage() {
               <ol className="svc-list svc-steps">{block.approach.map(([title, body], i) => <li key={title} style={{ "--li": i } as React.CSSProperties}><i>{String(i + 1).padStart(2, "0")}</i><b>{title}</b><span>{body}</span></li>)}</ol>
             </div>
           </div>
-          {block.services.length > 0 && <div className="svc-included" data-reveal>
+          {block.services.length > 0 && <div className={`svc-included${(offset + n) % 2 ? " is-plain" : ""}`} data-reveal>
             <h3>{block.servicesTitle}</h3>
             <ul>{block.services.map(([title, body], i) => <li key={title} style={{ "--li": i } as React.CSSProperties}><b>{title}</b><span>{body}</span></li>)}</ul>
           </div>}
@@ -88,10 +89,10 @@ function ServicePage() {
       <section className="svc-cta" data-tone="ocean" aria-labelledby="svc-cta-title">
         <div className="shell" data-reveal>
           <div className="svc-cta-row">
-            <div><h2 id="svc-cta-title">Ready to simplify your <em>cross-border tax?</em></h2><p>Schedule a free consultation—we’ll assess your obligations and identify planning opportunities at no cost.</p></div>
+            <div><h2 id="svc-cta-title">Ready to simplify your <em>cross-border tax?</em></h2><p>Free consultation—we’ll assess your obligations at no cost.</p></div>
             <a className="button-primary" href="/#contact">Schedule a call <ArrowUpRight aria-hidden="true" /></a>
           </div>
-          <nav className="svc-others" aria-label="Other services">{services.filter((s) => s.slug !== service.slug).map((s) => <a key={s.slug} href={`/services/${s.slug}/`}>{s.name}</a>)}</nav>
+          <nav className="svc-others" aria-label="Other services"><small>OTHER SERVICES</small>{services.filter((s) => s.slug !== service.slug).map((s) => <a key={s.slug} href={`/services/${s.slug}/`}>{s.name}</a>)}</nav>
         </div>
       </section>
     </main>
