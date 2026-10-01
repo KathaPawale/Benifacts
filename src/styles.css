@@ -76,7 +76,7 @@ html:not(.tone-live) [data-tone="navy"] { background-color: var(--navy); }
 html:not(.tone-live) [data-tone="deep"] { background-color: var(--deep); }
 html:not(.tone-live) [data-tone="ocean"] { background-color: rgb(4 62 74); }
 
-.tone-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100lvh; z-index: -1; overflow: hidden; pointer-events: none; background: var(--navy); --darkness: 1; contain: strict; }
+.tone-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100lvh; z-index: -1; overflow: hidden; pointer-events: none; background: var(--navy); --darkness: 1; contain: strict; will-change: transform; transform: translateZ(0); }
 .tone-canvas::before, .tone-canvas::after { content: ""; position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%; opacity: calc(.06 + var(--darkness) * .34); transition: opacity .6s linear; will-change: transform; }
 .tone-canvas::before { left: -25vmax; top: -30vmax; background: radial-gradient(circle, color-mix(in oklab, var(--teal) 55%, transparent), transparent 62%); animation: ambient-a 38s ease-in-out infinite alternate; }
 .tone-canvas::after { right: -30vmax; bottom: -35vmax; background: radial-gradient(circle, color-mix(in oklab, var(--aqua) 38%, transparent), transparent 62%); animation: ambient-b 46s ease-in-out infinite alternate; }
