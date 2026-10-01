@@ -7,9 +7,10 @@
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "preview": "vite preview",
+    "preview": "NITRO_PRESET=node-server vite build && PORT=${PORT:-4174} node .output/server/index.mjs",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build:static": "STATIC_EXPORT=1 NITRO_PRESET=node-server vite build && node scripts/static-export.mjs"
   },
   "overrides": {
     "rolldown": "1.2.1"

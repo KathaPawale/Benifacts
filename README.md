@@ -17,6 +17,12 @@ Open **http://127.0.0.1:4173/** in your browser. For a production build:
 npm run build
 ```
 
+To publish on Hostinger (or any static host), run `npm run build:static`. It creates `hostinger-upload/` and `benifacts-hostinger.zip`; upload the zip to `public_html` in Hostinger's File Manager and extract it there.
+
+Automatic deployment: `.github/workflows/deploy-hostinger.yml` runs that same build on every push to `main` and publishes the result to the `hostinger` branch. In Hostinger hPanel → Advanced → Git, connect this repository's `hostinger` branch to `public_html` and enable auto-deployment.
+
+To preview the production build locally, run `npm run preview` (it builds with Nitro’s Node preset and serves on http://127.0.0.1:4174). `npm run build` still targets Cloudflare for deployment.
+
 The original Lovable build configuration is retained. It currently targets a Cloudflare Worker through Nitro; `.output/public` alone is not the complete server-rendered application. No deployment to Lovable or your live domain has been performed by this ZIP update.
 
 ## Changes
@@ -28,7 +34,7 @@ The original Lovable build configuration is retained. It currently targets a Clo
 - Replaced the reconstructed CSS/text logo with authentic original Benifacts SVG files. Added the original logo favicon and existing logo-based social image, without recoloring or stretching the artwork.
 - Included a dependency lockfile for repeatable installation. No animation library was added.
 
-The new component is `src/components/animated-image.tsx`. Its two uses are in `src/routes/index.tsx`; photo styles are at the end of `src/styles.css`. Photography sources, license notes, dimensions and hashes are in `IMAGE_CREDITS.md`.
+The homepage lives in `src/routes/index.tsx` as twelve sections with an ARIO-inspired structure (hero with the original video and an oversized wordmark, an opening image, filing cards and founder, stacked practice cards, a pinned “who we help” stage, approach timeline, case study, team, testimonial, insight cards, FAQ, contact, and a footer wordmark). All motion — smooth scrolling, entrance reveals, the scroll-driven light/dark section tones, the cursor glow and the approach timeline — is in one hook, `src/components/use-editorial-motion.ts`, and every effect is disabled under `prefers-reduced-motion`. Styles are in `src/styles.css`. Photography sources, license notes, dimensions and hashes are in `IMAGE_CREDITS.md`.
 
 ## Hero videos
 
