@@ -26,7 +26,7 @@
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --gutter: clamp(20px, 5.6vw, 80px);
-  --section-space: clamp(28px, 2.8vw, 40px);
+  --section-space: clamp(20px, 2vw, 28px);
 }
 
 @font-face { font-family: "Benifacts Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/manrope-400.woff") format("woff"); }
@@ -205,7 +205,7 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .filing-cards-title { align-self: end; padding-bottom: 12px; font: 600 11.5px/1.5 var(--sans); letter-spacing: .16em; color: var(--ink-soft); }
 /* ARIO-style opening: each box is hinged on its bottom edge and swings upright as it scrolls in */
 .filing-cards { perspective: 1600px; }
-.filing-card { position: relative; display: grid; place-items: center; aspect-ratio: 1; background: var(--navy); --q: var(--p, 1); transform-origin: 50% 100%; transform: translate3d(0, calc((1 - var(--q)) * 160px), 0) rotateX(calc((1 - var(--q)) * 72deg)); will-change: transform; box-shadow: 0 calc(var(--q) * 30px) 60px -30px rgb(6 25 37 / calc(var(--q) * .5)); }
+.filing-card { position: relative; display: grid; place-items: center; aspect-ratio: 1; background: var(--navy); --q: var(--p, 1); transform-origin: 50% 100%; transform: translate3d(0, calc((1 - var(--q)) * 60px), 0) rotateX(calc((1 - var(--q)) * 55deg)); will-change: transform; box-shadow: 0 calc(var(--q) * 30px) 60px -30px rgb(6 25 37 / calc(var(--q) * .5)); }
 .filing-card .cross { transform: scaleX(var(--q)); transform-origin: 50% 50%; }
 .filing-card .cross::after { transform: scaleY(clamp(0, calc(var(--q) * 2 - 1), 1)); }
 .filing-card b, .filing-index { opacity: clamp(0, calc(var(--q) * 2.5 - 1.5), 1); transform: translate3d(0, calc((1 - var(--q)) * 30px), 0); }
@@ -261,7 +261,7 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- 3. Who we help ---------- */
 .clients-head { padding-bottom: 0; }
-.clients-head .centered-head { margin-bottom: clamp(28px, 3vw, 44px); }
+.clients-head .centered-head { margin-bottom: clamp(16px, 1.6vw, 24px); }
 .client-list { margin: 0; padding: 0; list-style: none; }
 .client-photos, .client-progress { display: none; }
 /* Fallback / mobile: an editorial list where each entry animates in */
@@ -283,7 +283,7 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 /* Desktop with motion engine: a pinned stage where prints are dealt onto a pile */
 @media (min-width: 901px) {
   html.reveal-ready .client-stage-wrap { position: relative; --stage-h: calc(max(88px, 11vh) + min(64vh, 580px) + 36px); height: calc(var(--stage-n, 4) * 55vh + var(--stage-h)); }
-  html.reveal-ready .client-stage { position: sticky; top: 0; height: var(--stage-h); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; padding-top: max(88px, 11vh); column-gap: 72px; }
+  html.reveal-ready .client-stage { position: sticky; top: 0; height: var(--stage-h); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; padding-top: max(76px, 9vh); column-gap: 72px; }
   html.reveal-ready .client-photos { display: block; position: relative; height: min(64vh, 580px); transform: translate3d(0, calc((var(--p, 0) - .5) * -36px), 0) rotate(calc((var(--p, 0) - .5) * -3deg)); }
   html.reveal-ready .client-ghost { position: absolute; right: -4%; top: -16%; z-index: 0; font: 800 clamp(160px, 17vw, 260px)/.8 "Avenir Next", Arial, sans-serif; letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.5px color-mix(in oklab, var(--ink) 22%, transparent); opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity .7s var(--ease), transform 1s var(--ease); }
   html.reveal-ready .client-photo { position: absolute; inset: 6%; z-index: 1; overflow: hidden; box-shadow: 0 34px 70px -34px rgb(6 25 37 / .6); clip-path: inset(100% 0 0 0); transform: translate3d(0, 90px, 0) rotate(0deg) scale(.92); transition: clip-path 1.1s var(--ease), transform 1.2s var(--ease), filter .9s var(--ease); }
@@ -533,7 +533,7 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .filing-cards-title { grid-column: 1 / -1; }
   .filing-card:nth-child(n) { translate: none; }
   .filing-cards { padding-bottom: 0; }
-  .why-intro { margin-top: 48px; }
+  .why-intro { margin-top: 28px; }
   .why-intro, .founder, .approach-foot, .case-spread, .contact-grid, .footer-top { grid-template-columns: minmax(0, 1fr); }
   .why-intro > *, .founder > *, .approach-foot > *, .case-spread > *, .contact-grid > *, .footer-top > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
   .why-intro { row-gap: 20px; }

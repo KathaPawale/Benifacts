@@ -89,11 +89,15 @@ export function useEditorialMotion() {
           return;
         }
         const mode = el.dataset["progress"];
+        // Cards transform themselves, so measure their untransformed slot via the parent row.
+        const top = mode === "card" && el.parentElement
+          ? el.parentElement.getBoundingClientRect().top + el.offsetTop - el.parentElement.offsetTop
+          : box.top;
         // "card": ARIO-style boxes hinge up from flat over the lower part of the viewport.
         const p = reduced.matches ? 1 : mode === "sticky"
           ? clamp(-box.top / Math.max(1, box.height - innerHeight))
           : mode === "card"
-            ? smooth(clamp((innerHeight * 1.02 - box.top) / (innerHeight * 0.62)))
+            ? smooth(clamp((innerHeight * 1.05 - top) / (innerHeight * 0.4)))
             : clamp((innerHeight - box.top) / (innerHeight * 0.9));
         el.style.setProperty("--p", p.toFixed(4));
       });
