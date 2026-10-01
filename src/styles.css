@@ -26,7 +26,7 @@
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --gutter: clamp(20px, 5.6vw, 80px);
-  --section-space: clamp(40px, 4.2vw, 60px);
+  --section-space: clamp(32px, 3.4vw, 48px);
 }
 
 @font-face { font-family: "Benifacts Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/manrope-400.woff") format("woff"); }
@@ -141,11 +141,11 @@ figure { margin: 0; }
 figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .fineprint { font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); }
 .label { margin: 0 0 26px; font: 600 11.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-.centered-head { max-width: 1000px; margin: 0 auto clamp(36px, 4vw, 60px); text-align: center; }
+.centered-head { max-width: 1000px; margin: 0 auto clamp(28px, 3vw, 44px); text-align: center; }
 .centered-head h2 { font-weight: 600; }
 .centered-head > p:not(.label) { max-width: 56ch; margin: 22px auto 0; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
 .centered-head .text-link { margin-top: 28px; }
-.centered-head.with-aside > p:not(.label) { max-width: 40ch; margin: 36px 0 0 auto; text-align: left; font-size: 15.5px; }
+.centered-head.with-aside > p:not(.label) { max-width: 56ch; margin: 20px auto 0; text-align: center; font-size: 15.5px; }
 /* ARIO-style crosshair rule and two-column meta table */
 .cross { position: absolute; left: 20px; right: 20px; top: 36px; height: 1px; background: var(--line); pointer-events: none; }
 .cross::after { content: ""; position: absolute; left: 50%; top: -14px; width: 1px; height: 28px; background: var(--line); }
@@ -162,12 +162,12 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .hero-video-layer { opacity: 0; transition: opacity .8s ease; }
 .hero-video-layer.is-front { opacity: 1; }
 .hero-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, color-mix(in oklab, var(--navy) 84%, transparent) 0%, color-mix(in oklab, var(--navy) 52%, transparent) 50%, color-mix(in oklab, var(--navy) 22%, transparent) 100%), linear-gradient(0deg, color-mix(in oklab, var(--navy) 88%, transparent), transparent 55%); }
-.hero-content { min-height: max(700px, 100svh); display: grid; grid-template-columns: minmax(0, 760px) minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 64px; padding-block: 124px 72px; }
+.hero-content { min-height: max(700px, 100svh); display: grid; grid-template-columns: minmax(0, 760px) minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 64px; padding-block: 124px 64px; }
 .hero-kicker { grid-column: 1; grid-row: 1; display: flex; align-items: center; gap: 12px; font: 600 10.5px/1.5 var(--mono); letter-spacing: .14em; }
 .hero-kicker > span { width: 8px; height: 8px; background: var(--aqua); flex: none; }
-.hero-statement { grid-column: 1; grid-row: 2; align-self: center; }
+.hero-statement { grid-column: 1; grid-row: 2 / span 2; align-self: end; }
 .hero-statement .eyebrow { color: var(--aqua); }
-.hero h1 { font-size: clamp(36px, 4.1vw, 60px); line-height: 1.08; letter-spacing: -.035em; font-weight: 600; text-wrap: balance; }
+.hero h1 { font-size: clamp(30px, 3.3vw, 48px); line-height: 1.08; letter-spacing: -.035em; font-weight: 600; text-wrap: balance; }
 .hero h1 em { color: var(--aqua); }
 .hero-lead { margin-top: 22px; font-size: 15.5px; line-height: 1.7; color: color-mix(in oklab, var(--paper) 80%, transparent); }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 28px; }
@@ -215,7 +215,7 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .filing-card b { transition: scale .5s var(--ease); }
 .filing-card:hover b { scale: 1.06; }
 .filing-card.more:hover b svg { transform: rotate(90deg); }
-.why-intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; margin-top: clamp(48px, 5vw, 80px); }
+.why-intro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; margin-top: clamp(36px, 4vw, 60px); }
 .why-mark { grid-column: 1 / span 1; font: italic 400 48px/1 var(--serif); color: var(--accent); }
 .why-intro h3 { grid-column: 2 / span 6; font-size: clamp(22px, 2.2vw, 32px); line-height: 1.12; letter-spacing: -.03em; font-weight: 600; }
 .why-intro p { grid-column: 9 / span 4; align-self: end; font-size: 16px; line-height: 1.75; color: var(--ink-soft); }
@@ -241,14 +241,14 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* ---------- 3. Expertise ---------- */
 .practice-stack { margin: 0; padding: 0; list-style: none; }
-.practice { position: sticky; top: calc(96px + var(--i) * 16px); margin-bottom: 6vh; }
+.practice { position: sticky; top: calc(96px + var(--i) * 16px); margin-bottom: 4vh; }
 .practice:last-child { margin-bottom: 0; }
-.practice-card { display: grid; grid-template-columns: 1fr 1fr; min-height: min(64vh, 540px); background: var(--paper); box-shadow: 0 -24px 60px -20px rgb(0 0 0 / .45); overflow: hidden; }
-.practice-text { position: relative; display: flex; flex-direction: column; padding: 72px clamp(28px, 3.4vw, 52px) 36px; }
+.practice-card { display: grid; grid-template-columns: 1fr 1fr; min-height: min(56vh, 480px); background: var(--paper); box-shadow: 0 -24px 60px -20px rgb(0 0 0 / .45); overflow: hidden; }
+.practice-text { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px clamp(24px, 3vw, 48px) 32px; }
 .practice-number { font-size: clamp(60px, 6vw, 96px); font-weight: 700; letter-spacing: -.07em; line-height: .82; }
 .practice-text h3 { margin: 18px 0 20px; font-size: clamp(18px, 1.6vw, 24px); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; text-transform: uppercase; }
-.practice-text .meta-table { border-bottom: 1px solid var(--line); }
-.practice-text p { margin-top: 18px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+.practice-text .meta-table { align-self: stretch; justify-content: center; grid-template-columns: auto auto; border-bottom: 1px solid var(--line); }
+.practice-text p { max-width: 46ch; margin-top: 16px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
 .practice-text small { display: block; margin-top: 14px; font: 600 10.5px/1.6 var(--sans); letter-spacing: .12em; white-space: pre-wrap; color: var(--accent); }
 .practice-more { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 24px; font-size: 15px; letter-spacing: .04em; font-weight: 700; letter-spacing: -.02em; }
 .practice-more svg { width: 20px; height: 20px; transition: transform .4s var(--ease); }
@@ -392,7 +392,7 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .process-step.is-active .process-node { background: var(--accent); border-color: var(--accent); transform: scale(1.2); box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 18%, transparent); }
 .process-step.is-active .process-card { opacity: 1; transform: none; border-color: color-mix(in oklab, var(--accent) 45%, transparent); background: color-mix(in oklab, var(--paper) 7%, transparent); }
 .process-card:hover { background: color-mix(in oklab, var(--paper) 10%, transparent); }
-.approach-foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: end; margin-top: clamp(40px, 5vw, 64px); }
+.approach-foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: end; margin-top: clamp(28px, 3.5vw, 48px); }
 .approach-visual { grid-column: 1 / span 6; }
 .approach-visual img { aspect-ratio: 16 / 9; }
 .approach-visual figcaption { margin-top: 14px; font: 600 10px/1.5 var(--sans); letter-spacing: .14em; color: var(--ink-soft); }
@@ -516,6 +516,9 @@ figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) {
   .hero-content { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 40px; padding-block: 112px 56px; }
   .hero-statement, .hero-kicker, .hero-note { grid-column: 1; grid-row: auto; }
+  .hero-content { grid-template-rows: auto 1fr auto; }
+  .hero-statement { grid-row: 2; align-self: end; }
+  .hero-note { grid-row: 3; justify-self: start; }
   .hero h1 { font-size: clamp(32px, 8.6vw, 44px); }
     .centered-head.with-aside > p:not(.label) { margin: 24px auto 0; text-align: center; }
   .filing-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
