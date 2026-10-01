@@ -17,7 +17,7 @@ The homepage now uses topic-matched stock photography, stored in `public/images/
 | `client-remote-founder` | Who we help 03 | Working Home | CC0 (StockSnap) | https://stocksnap.io/photo/working-home-O8EAEFRYBP |
 | `client-catch-up` | Who we help 04 | Business Man | CC0 (StockSnap) | https://stocksnap.io/photo/business-man-VISYYURYFA |
 | `approach-consultation` | Our approach | Business Meeting | CC0 (StockSnap) | https://stocksnap.io/photo/business-meeting-SKBXLJOILI |
-| `case-handshake` | Case study | Work Business | CC0 (StockSnap) | https://stocksnap.io/photo/work-business-WQ2JMRIIQB |
+| `case-filings` | Case study | Business Document | CC0 (StockSnap) | https://stocksnap.io/photo/business-document-AB4F938C85 |
 | `insight-documents` | Insights 01 | Office Work | CC0 (StockSnap) | https://stocksnap.io/photo/office-work-UP9J4EZYNJ |
 | `insight-passports` | Insights 02 | Passport Table | CC0 (StockSnap) | https://stocksnap.io/photo/passport-table-VZTYVVUYZB |
 | `insight-calendar` | Insights 03 | Calendar Display | CC0 (StockSnap) | https://stocksnap.io/photo/calendar-display-ZI905NZJY1 |

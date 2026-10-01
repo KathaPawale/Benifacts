@@ -406,12 +406,16 @@ function Approach() {
         <h2 id="approach-title">Beyond the numbers. <em>Closer to the decision.</em></h2>
         <ul className="values"><li><span>01</span>Accuracy</li><li><span>02</span>Transparency</li><li><span>03</span>Integrity</li></ul>
       </div>
-      <div className="approach-body">
-        <figure className="approach-visual" data-reveal="image"><StockImage name="approach-consultation" alt="Two women in conversation at a table by a window" sizes="(max-width: 900px) 100vw, 40vw" /><figcaption>FIG. 01 &nbsp;/&nbsp; THE PEOPLE BEHIND THE WORK</figcaption></figure>
-        <div className="timeline-wrap">
-          <ol className="timeline">{process.map(([n, t, b]) => <li className="timeline-step" key={n} data-reveal><span className="timeline-dot" aria-hidden="true" /><span className="timeline-number">{n}</span><h3>{t}</h3><p>{b}</p></li>)}</ol>
-          <a className="button-primary" href="#contact">Work with Benifacts <ArrowUpRight aria-hidden="true" /></a>
-        </div>
+      <div className="process-track">
+        <div className="process-rail" aria-hidden="true"><span className="process-rail-fill" /></div>
+        <ol className="process-steps">{process.map(([n, t, b], i) => <li className="process-step" key={n} style={{ "--i": i } as React.CSSProperties}>
+          <span className="process-node" aria-hidden="true" />
+          <div className="process-card"><Cross /><span className="process-number">{n}</span><h3>{t}</h3><p>{b}</p></div>
+        </li>)}</ol>
+      </div>
+      <div className="approach-foot">
+        <figure className="approach-visual" data-reveal="image"><StockImage name="approach-consultation" alt="Two women in conversation at a table by a window" sizes="(max-width: 900px) 100vw, 50vw" /><figcaption>FIG. 01 &nbsp;/&nbsp; THE PEOPLE BEHIND THE WORK</figcaption></figure>
+        <a className="button-primary" href="#contact" data-reveal>Work with Benifacts <ArrowUpRight aria-hidden="true" /></a>
       </div>
     </div>
   </section>;
@@ -421,7 +425,7 @@ function Approach() {
 function CaseStudy() {
   return <section id="case-study" className="case section-pad" data-tone="mist" aria-labelledby="case-title">
     <div className="shell case-spread">
-      <figure className="case-visual" data-reveal="image" aria-hidden="true"><StockImage name="case-handshake" alt="" sizes="(max-width: 900px) 100vw, 55vw" /></figure>
+      <figure className="case-visual" data-reveal="image" aria-hidden="true"><StockImage name="case-filings" alt="" sizes="(max-width: 900px) 100vw, 50vw" /></figure>
       <div className="case-card" data-reveal>
         <Cross />
         <div className="meta-table"><span>CASE STUDY</span><span>CROSS-BORDER COMPLIANCE</span></div>

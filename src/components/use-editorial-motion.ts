@@ -16,8 +16,8 @@ export function useEditorialMotion() {
     const header = document.querySelector<HTMLElement>(".site-header");
     const hero = document.querySelector<HTMLElement>(".hero");
     const progressBar = document.querySelector<HTMLElement>(".reading-progress");
-    const timeline = document.querySelector<HTMLElement>(".timeline");
-    const steps = Array.from(document.querySelectorAll<HTMLElement>(".timeline-step"));
+    const track = document.querySelector<HTMLElement>(".process-track");
+    const steps = Array.from(document.querySelectorAll<HTMLElement>(".process-step"));
     const progressed = Array.from(document.querySelectorAll<HTMLElement>("[data-progress]"));
     const stages = Array.from(document.querySelectorAll<HTMLElement>("[data-stage]"));
 
@@ -96,11 +96,12 @@ export function useEditorialMotion() {
         el.style.setProperty("--p", p.toFixed(4));
       });
       primed = true;
-      if (timeline) {
-        const box = timeline.getBoundingClientRect();
-        const p = clamp((innerHeight * 0.6 - box.top) / Math.max(1, box.height));
-        timeline.style.setProperty("--timeline-progress", p.toFixed(4));
-        steps.forEach(step => step.classList.toggle("is-active", step.getBoundingClientRect().top < innerHeight * 0.6));
+      if (track) {
+        // The rail fills while the track rises from 85% to 40% of the viewport; steps light up in turn.
+        const box = track.getBoundingClientRect();
+        const p = reduced.matches ? 1 : clamp((innerHeight * 0.85 - box.top) / (innerHeight * 0.45));
+        track.style.setProperty("--track-progress", p.toFixed(4));
+        steps.forEach((step, i) => step.classList.toggle("is-active", p * steps.length > i + 0.15));
       }
     };
     const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
