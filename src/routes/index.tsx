@@ -325,9 +325,9 @@ function Hero() {
   </section>;
 }
 
-/* 2 — Founder spotlight (replaces the opening image), then Why Benifacts. */
-function WhyBenifacts() {
-  return <><section className="founder-spotlight section-pad" data-tone="navy" aria-labelledby="founder-title">
+/* Founder spotlight — shown between Insights and FAQ. */
+function Founder() {
+  return <section className="founder-spotlight section-pad" data-tone="navy" aria-labelledby="founder-title">
       <div className="shell founder-grid">
         <figure className="founder-photo" data-reveal="image">
           <SiteImage src={founderImage} alt="Founder and Lead CPA of Benifacts" width={1254} height={1254} loading="lazy" decoding="async" />
@@ -340,8 +340,12 @@ function WhyBenifacts() {
           <div className="founder-bio-foot"><small>Specific name, credentials, and licence details will appear here once confirmed. We do not publish unverified credentials.</small><a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a></div>
         </div>
       </div>
-    </section>
-    <section id="credibility" className="why" data-tone="paper" aria-labelledby="why-title">
+    </section>;
+}
+
+/* 2 — Why Benifacts. */
+function WhyBenifacts() {
+  return <section id="credibility" className="why" data-tone="paper" aria-labelledby="why-title">
     <div className="shell section-pad">
       <div className="centered-head" data-reveal>
         <Label>01 · Why Benifacts</Label>
@@ -360,7 +364,7 @@ function WhyBenifacts() {
       </div>
       <ul className="stats" data-reveal>{stats.map(([n, l], i) => <li key={l} style={{ "--i": i } as React.CSSProperties}><b>{n}</b><span>{l}</span></li>)}</ul>
     </div>
-  </section></>;
+  </section>;
 }
 
 /* 3 — Expertise: stacked practice cards (number card + image), ARIO-style. */
@@ -541,6 +545,7 @@ function Index() {
       <CaseStudy />
       <Testimonial />
       <Insights />
+      <Founder />
       <FaqSection />
       <Contact />
     </main>
