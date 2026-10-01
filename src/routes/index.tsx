@@ -223,8 +223,14 @@ function CinematicVideo({ className = "" }: { className?: string }) {
         switching.current = false;
       }, CROSSFADE_MS);
     } catch {
-      // A buffering or autoplay failure leaves the current frame on screen.
+      // A buffering or autoplay failure leaves the current frame on screen; keep the current clip
+      // moving and try the next one again shortly, so a slow connection never freezes the loop.
       switching.current = false;
+      if (currentGeneration !== generation.current) return;
+      const current = getLayer(outgoing);
+      if (current?.ended) { current.currentTime = 0; void current.play().catch(() => undefined); }
+      window.clearTimeout(fadeTimer.current);
+      fadeTimer.current = window.setTimeout(() => { if (currentGeneration === generation.current) void advance(); }, 1500);
     }
   }, [front]);
 
@@ -249,7 +255,12 @@ function CinematicVideo({ className = "" }: { className?: string }) {
         poster={layer === 0 ? heroPoster : undefined}
         aria-hidden="true"
         onTimeUpdate={handleTimeUpdate(layer)}
-        onEnded={() => { if (layer === front) advance(); }}
+        onEnded={(event) => {
+          if (layer !== front) return;
+          // Next clip still buffering: keep this one playing instead of freezing on its last frame.
+          if (switching.current) { event.currentTarget.currentTime = 0; void event.currentTarget.play().catch(() => undefined); }
+          else advance();
+        }}
       />
     ))}
   </>;

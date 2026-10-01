@@ -80,7 +80,9 @@ export function useEditorialMotion() {
         const box = el.getBoundingClientRect();
         if (el.dataset["stage"]) {
           const count = Number(el.dataset["stage"]) || 1;
-          const p = clamp(-box.top / Math.max(1, box.height - innerHeight));
+          // Progress runs while the pinned child stays stuck (its height may be less than the viewport).
+          const pinned = (el.firstElementChild as HTMLElement | null)?.offsetHeight ?? innerHeight;
+          const p = clamp(-box.top / Math.max(1, box.height - pinned));
           const active = String(Math.min(count - 1, Math.floor(p * count * 0.999)));
           if (el.dataset["active"] !== active) el.dataset["active"] = active;
           el.style.setProperty("--p", (reduced.matches ? 0 : p).toFixed(4));
