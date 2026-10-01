@@ -1,6 +1,8 @@
 import { useEditorialMotion } from "../components/use-editorial-motion";
 import { GraffitiCursor } from "../components/graffiti-cursor";
 import { createFileRoute } from "@tanstack/react-router";
+import { Brand, Cross, Faq, Footer, Header, Label } from "../components/site-chrome";
+import { services as servicePages } from "../lib/services";
 import { ArrowDown, ArrowUpRight, Briefcase, HardHat, HeartPulse, Menu, Minus, Monitor, Plane, Plus, Rocket, ShoppingBag, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -21,7 +23,7 @@ const lovableFallback: Record<string, string> = {
 };
 const CROSSFADE_MS = 800;
 
-const metaDescription = "Benifacts is an accounting and advisory firm with offices in Slough, UK and Coral Springs, Florida — UK accounting, tax and compliance, plus US international tax filings (5471, 5472, FBAR, 8938) for companies and founders operating across borders.";
+const metaDescription = "Benifacts is a cross-border CPA firm in Coral Springs, Florida — cross-border tax advisory, US tax compliance, sales tax planning and complete small-business services for individuals, startups and businesses operating between the US and beyond.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,6 +32,7 @@ export const Route = createFileRoute("/")({
       { rel: "preload", as: "font", href: "/fonts/manrope-600.woff", type: "font/woff", crossOrigin: "anonymous" },
       { rel: "preload", as: "font", href: "/fonts/newsreader-400.woff", type: "font/woff", crossOrigin: "anonymous" },
       { rel: "preload", as: "image", href: heroPoster, fetchPriority: "high" },
+      { rel: "preload", as: "image", href: "/images/benifacts-original.svg", type: "image/svg+xml" },
     ],
     meta: [
       { title: "Benifacts | Cross-Border CPA Firm · US International Tax & Advisory" },
@@ -47,10 +50,10 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { number: "01", title: "Cross-border accounting", lead: "Multi-currency books that reconcile.", body: "Books that reconcile across entities and currencies—plus UK bookkeeping, VAT and payroll.", tags: "BOOKKEEPING  /  MULTI-CURRENCY  /  VAT & PAYROLL", href: "/services/cross-border-accounting" },
-  { number: "02", title: "International tax compliance", lead: "One calendar for every return.", body: "US international returns and UK self-assessment, filed correctly and on time.", tags: "5471  /  5472  /  FBAR  /  SELF-ASSESSMENT", href: "/services/international-tax-compliance" },
-  { number: "03", title: "Founder & expansion advisory", lead: "Decisions made before year-end.", body: "Entity choice, expansion planning and UK company formation.", tags: "STRUCTURING  /  EXPANSION  /  COMPANY FORMATION", href: "/services/founder-advisory" },
-  { number: "04", title: "Virtual CFO & reporting", lead: "Reporting ready for the room.", body: "Board-ready reporting and a Virtual CFO, with a dedicated accountant.", tags: "MIS  /  VIRTUAL CFO  /  BOARD REPORTING", href: "/services/virtual-cfo" },
+  { number: "01", title: "Cross-border tax advisory & planning", lead: "International tax clarity.", body: "Strategic guidance for non-resident individuals, foreign-owned businesses and Americans abroad—FBAR, FATCA, treaty positions and optimized structures.", tags: "TREATY ANALYSIS  /  FBAR & FATCA  /  STRUCTURING  /  TRANSFER PRICING  /  EXPAT TAX", href: "/services/cross-border-advisory/" },
+  { number: "02", title: "US tax compliance & planning", lead: "Every return, on time.", body: "Federal and state filings for individuals and every entity type—Forms 1040, 1120, 1065 and all international information returns—with IRS audit representation.", tags: "FEDERAL & STATE  /  5471  /  5472  /  8865  /  8938  /  IRS AUDIT", href: "/services/us-tax-compliance/" },
+  { number: "03", title: "US sales tax planning & compliance", lead: "Know where you have nexus.", body: "Multi-state sales tax obligations, economic nexus thresholds and voluntary disclosure—keeping your business compliant without over-paying.", tags: "NEXUS ANALYSIS  /  VOLUNTARY DISCLOSURE  /  REGISTRATION  /  RETURN FILING", href: "/services/sales-tax/" },
+  { number: "04", title: "Small business complete package", lead: "Everything under one roof.", body: "Bookkeeping, payroll, corporate tax, 401(k) administration and business entity formation—LLC, corporation or non-profit—coordinated by your Primary Account Manager.", tags: "BOOKKEEPING  /  PAYROLL & 1099  /  CORPORATE TAX  /  401(K)  /  ENTITY FORMATION", href: "/services/small-business/" },
 ];
 
 
@@ -62,11 +65,13 @@ const clients: Array<[string, string, string]> = [
 ];
 
 const faqs: Array<[string, string]> = [
-  ["Is the call free?", "Yes. The first 20-minute call carries no fee and no obligation. No engagement exists until an engagement letter is signed."],
-  ["Do I need documents ready?", "No. Bring the shape of the situation—countries, ownership and open years. Documents come later, once we agree a scope."],
-  ["What services do you offer individuals?", "Personal tax planning, self-assessment, inheritance tax, HMRC inquiries, and US filings such as FBAR and 8938."],
-  ["What makes Benifacts different?", "A dedicated accountant, unlimited bookkeeping, and all your tax filings managed on one calendar."],
-  ["How do you keep my information safe?", "Documents move through a secure portal—never as email attachments—and are reviewed only by our team."],
+  ["What is cross-border tax advisory, and who needs it?", "It helps individuals and businesses with tax obligations in more than one country—foreign nationals earning US income, Americans with overseas assets, US companies with foreign subsidiaries, and non-US businesses selling into the US."],
+  ["What is a Primary Account Manager (PAM)?", "Your dedicated point of contact at Benifacts. They own the relationship, coordinate all service delivery, and lead your advisory—so you never re-explain your situation every year."],
+  ["Do I need to file US taxes if I live or am incorporated outside the US?", "Potentially, yes. US citizens and permanent residents are taxed on worldwide income, and non-US individuals and foreign corporations may have filing obligations too. We determine your exact obligations."],
+  ["What are FBAR and FATCA, and do I need to report?", "FBAR (FinCEN Form 114) applies to US persons whose foreign financial accounts exceed $10,000 at any point in the year. FATCA (Form 8938) covers specified foreign financial assets above certain thresholds. We handle both filings."],
+  ["How does Benifacts handle bookkeeping and payroll for small businesses?", "Bookkeeping, payroll and routine compliance are delivered through our trusted outsourced delivery partners, coordinated and overseen by your Primary Account Manager."],
+  ["How quickly can Benifacts onboard a new client?", "Onboarding typically takes one to two weeks. For urgent filings we can prioritize the initial assessment and begin work within days of engagement."],
+  ["Does Benifacts work with startups and early-stage businesses?", "Yes. Getting the structure right from the beginning—entity type, tax elections, cross-border considerations—avoids costly restructuring later."],
 ];
 
 
@@ -81,7 +86,7 @@ const caseChapters = [
 const filings = ["5471", "5472", "FBAR", "8938", "2555", "1116"];
 
 // Figures published on benifacts.co.uk.
-const stats: Array<[string, string]> = [["10+", "Years of excellence"], ["100+", "Happy clients in the UK"], ["100%", "Paperless commitment"], ["65%", "Referral business"]];
+const stats: Array<[string, string]> = [["10+", "Years of excellence"], ["200+", "Happy clients across the US"], ["100%", "Paperless operations"], ["65%", "Referral business"]];
 
 const testimonials: Array<[string, string]> = [
   ["Benifacts offered clear guidance and ensured my tax returns were filed accurately and on time. They’ve saved me both time and money.", "General Practitioner, London"],
@@ -92,9 +97,9 @@ const testimonials: Array<[string, string]> = [
 // Illustrative CC0 stock photography (see IMAGE_CREDITS.md) — chosen by topic, never presented as Benifacts staff or clients.
 const stock = (name: string) => ({ src: `/images/stock/${name}-960.webp`, srcSet: `/images/stock/${name}-640.webp 640w, /images/stock/${name}-960.webp 960w` });
 const serviceImages: Record<string, { name: string; alt: string }> = {
-  "01": { name: "service-accounting", alt: "Hands working on a laptop and calculator beside financial notes" },
+  "01": { name: "service-advisory", alt: "A team discussing plans around a meeting table" },
   "02": { name: "service-tax-return", alt: "Close-up of a dictionary page showing the words tax return" },
-  "03": { name: "service-advisory", alt: "A team discussing plans around a meeting table" },
+  "03": { name: "service-accounting", alt: "Hands working on a laptop and calculator beside financial notes" },
   "04": { name: "service-reporting", alt: "A laptop displaying analytics charts" },
 };
 const clientImages: Record<string, { name: string; alt: string }> = {
@@ -106,22 +111,12 @@ const clientImages: Record<string, { name: string; alt: string }> = {
 
 // Short editorial notes. Every fact restates a service already described on this page.
 const insights = [
-  { category: "INBOUND · FOREIGN-OWNED US ENTITIES", title: "Form 5472 starts the day a US entity has an overseas owner", excerpt: "Pro forma 1120, Form 5472 and state nexus can apply from the first year — mapping them early keeps every return on one calendar.", image: "insight-documents", alt: "A signed document on a clipboard on a wooden desk" },
-  { category: "EXPATS · GLOBAL INCOME", title: "Earning in two countries rarely means one simple return", excerpt: "US people living abroad may need Forms 2555 and 1116 alongside FBAR and 8938. Knowing which apply before the deadline keeps the year predictable.", image: "insight-passports", alt: "Two US passports on a wooden table" },
-];
-// Articles published on benifacts.co.uk.
-const ukInsights = [
-  { category: "UK · VAT", title: "Making Tax Digital for VAT: A Complete Guide", excerpt: "The digital revolution is transforming the UK tax system. What every business owner needs to know about Making Tax Digital for VAT.", image: "making-tax-digital-for-vat-a-complete-guide", href: "https://www.benifacts.co.uk/making-tax-digital-for-vat-a-complete-guide/" },
+  { category: "BLOG", title: "Maximizing Tax Deductions: Overlooked Business Expenses That Can Save You Thousands", excerpt: "Managing your finances goes beyond earning revenue—it also means minimizing your tax liabilities through every legitimate deduction available to you.", image: "insight-documents", alt: "A signed document on a clipboard on a wooden desk" },
+  { category: "BLOG", title: "Preparing for an IRS Audit: Best Practices for Businesses", excerpt: "An IRS audit is one of the most stressful events for any business. Whether triggered by a red flag or chosen at random, preparation makes all the difference.", image: "insight-calendar", alt: "A desk calendar beside pens and a stapler" },
+  { category: "BLOG", title: "Navigating the New Tax Code: What Businesses Need to Know", excerpt: "The US tax landscape is constantly evolving. Recent changes significantly impact businesses of all sizes—here is what you need to understand and act on.", image: "insight-passports", alt: "Two US passports on a wooden table" },
 ];
 
-function Brand({ light = false }: { light?: boolean }) {
-  return <span className={`brand-lockup old-brand ${light ? "old-brand-light" : ""}`}><span className="old-brand-mark" aria-hidden="true"><i /><i /><i /></span><span><span className="old-brand-name">benifacts<span className="old-brand-dot">.</span></span><small>ADVISORY &amp; ACCOUNTING</small></span></span>;
-}
 
-/** Oversized Benifacts wordmark in the logo's own typeface, used the way ARIO uses its name. */
-function Wordmark({ className = "" }: { className?: string }) {
-  return <span className={`wordmark ${className}`} aria-hidden="true"><span className="wordmark-inner">benifacts<span className="old-brand-dot">.</span></span></span>;
-}
 
 function SiteImage({ src, ...rest }: React.ImgHTMLAttributes<HTMLImageElement> & { src: string }) {
   return <img {...rest} src={src} onError={(e) => {
@@ -141,15 +136,7 @@ function ScrubText({ text }: { text: string }) {
   return <span className="scrub" data-progress="scrub" style={{ "--n": words.length } as React.CSSProperties}>{words.map((w, i) => <span key={i} style={{ "--w": i } as React.CSSProperties}>{w}{i < words.length - 1 ? " " : ""}</span>)}</span>;
 }
 
-/** Small centred section label, ARIO-style. */
-function Label({ children }: { children: React.ReactNode }) {
-  return <p className="label">{children}</p>;
-}
 
-/** Thin crosshair rule used on cards. */
-function Cross() {
-  return <span className="cross" aria-hidden="true" />;
-}
 
 type Layer = 0 | 1;
 
@@ -283,32 +270,7 @@ function CinematicVideo({ className = "" }: { className?: string }) {
 }
 
 
-const nav: Array<[string, string]> = [["Why Benifacts", "#credibility"], ["Expertise", "#expertise"], ["Who we help", "#clients"], ["Insights", "#insights"]];
 
-function Header() {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    document.documentElement.classList.toggle("menu-locked", open);
-    if (!open) return;
-    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, [open]);
-  return <header className={`site-header ${open ? "menu-open" : ""}`}>
-    <a href="#main" className="skip-link">Skip to content</a>
-    <div className="header-inner">
-      <a href="#top" aria-label="Benifacts home" className="header-brand"><Brand light /></a>
-      <nav className="desktop-nav" aria-label="Main navigation">{nav.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</nav>
-      <a className="header-cta" href="#contact">Let’s talk <Plus size={15} aria-hidden="true" /></a>
-      <button className="menu-button" type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
-    </div>
-    <div id="mobile-menu" className="mobile-menu" hidden={!open}>
-      <nav aria-label="Mobile navigation">{[...nav, ["FAQ", "#faq"] as [string, string]].map(([label, href], i) => <a key={href} href={href} onClick={() => setOpen(false)}><span>{String(i + 1).padStart(2, "0")}</span>{label}</a>)}</nav>
-      <a className="button-primary" href="#contact" onClick={() => setOpen(false)}>Get in touch <ArrowUpRight aria-hidden="true" /></a>
-    </div>
-    <div className="reading-progress" aria-hidden="true" />
-  </header>;
-}
 
 /* 1 — Hero: the original video, with an ARIO-style composition on top of it. */
 function Hero() {
@@ -317,8 +279,8 @@ function Hero() {
     <div className="hero-shade" aria-hidden="true" />
     <div className="hero-content shell">
       <div className="hero-statement hero-enter">
-        <h1 id="hero-title">UK &amp; US tax clarity for businesses and founders <em>across borders.</em></h1>
-        <p className="hero-lead">Accounting, tax and advisory for the UK and US—coordinated around your business.</p>
+        <h1 id="hero-title">USA tax clarity for businesses and founders <em>across borders.</em></h1>
+        <p className="hero-lead">Dedicated advisory, full compliance management, and strategic planning for individuals, startups, and businesses operating between the US and beyond.</p>
         <div className="hero-actions"><a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a><a className="text-link" href="#expertise">Explore our services <ArrowDown aria-hidden="true" /></a></div>
       </div>
     </div>
@@ -349,8 +311,8 @@ function WhyBenifacts() {
     <div className="shell section-pad">
       <div className="centered-head" data-reveal>
         <Label>01 · Why Benifacts</Label>
-        <h2 id="why-title">Credibility you can <em>verify before you call.</em></h2>
-        <p>Cross-border tax work leaves little room for guesswork. These are the people, experience, and results behind every engagement.</p>
+        <h2 id="why-title">Complete financial solutions <em>for US businesses.</em></h2>
+        <p>Everything your business needs to stay compliant, optimize tax, and plan for growth—delivered with the care and precision of a trusted partner.</p>
       </div>
       <div className="filing-cards">
         <p className="filing-cards-title" data-reveal>INTERNATIONAL FILINGS MANAGED</p>
@@ -360,7 +322,7 @@ function WhyBenifacts() {
       <div className="why-intro" data-reveal>
         <span className="why-mark" aria-hidden="true">B.</span>
         <h3><ScrubText text="Simplifying complexity for businesses that don’t stop at the border." /></h3>
-        <p>Precision-driven accounting and advisory from our offices in Slough, UK and Coral Springs, Florida—backed by over 10 years of experience.</p>
+        <p>Every client has a dedicated Primary Account Manager who owns your relationship, your compliance, and your advisory delivery. Your financial data is protected with SOC 2-compliant practices and advanced encryption at every step.</p>
       </div>
       <ul className="stats" data-reveal>{stats.map(([n, l], i) => <li key={l} style={{ "--i": i } as React.CSSProperties}><b>{n}</b><span>{l}</span></li>)}</ul>
     </div>
@@ -374,7 +336,7 @@ function Expertise() {
       <div className="centered-head with-aside" data-reveal>
         <Label>02 · Our expertise</Label>
         <h2 id="expertise-title">The right perspective. <em>The right next move.</em></h2>
-        <p>Integrated accounting, tax, and advisory for the UK and US.</p>
+        <p>From cross-border tax planning to US compliance and sales tax strategy—full-service advisory with dedicated Primary Account Managers who own your outcomes end-to-end.</p>
       </div>
       <ol className="practice-stack">{services.map((s, i) => <li className="practice" key={s.number} style={{ "--i": i } as React.CSSProperties}>
         <a className="practice-card" href={s.href}>
@@ -390,6 +352,7 @@ function Expertise() {
           <figure className="practice-image"><StockImage name={serviceImages[s.number]!.name} alt={serviceImages[s.number]!.alt} /></figure>
         </a>
       </li>)}</ol>
+      <p className="more-services" data-reveal><span>ALSO</span>{servicePages.slice(4).map((p) => <a key={p.slug} className="text-link" href={`/services/${p.slug}/`}>{p.name} <ArrowUpRight aria-hidden="true" /></a>)}</p>
     </div>
   </section>;
 }
@@ -460,8 +423,8 @@ function Insights() {
     <div className="shell">
       <div className="centered-head" data-reveal>
         <Label>05 · Insights</Label>
-        <h2 id="insights-title">Questions worth asking <em>before the deadline.</em></h2>
-        <p>Short notes on the UK and US filings our clients ask about most. General information only—your facts decide what applies.</p>
+        <h2 id="insights-title">Recent <em>articles.</em></h2>
+        <p>Stay informed on US tax law, cross-border compliance, and financial strategy for growing businesses.</p>
       </div>
       <div className="insight-grid">
         {insights.map((item, i) => <article className="insight-card" key={item.title} data-reveal style={{ "--i": i } as React.CSSProperties}>
@@ -469,21 +432,11 @@ function Insights() {
           <div className="insight-body"><Cross /><div className="meta-table"><span>{String(i + 1).padStart(2, "0")}</span><span>{item.category}</span></div><h3>{item.title}</h3><p>{item.excerpt}</p></div>
           <a className="card-link" href="#contact" aria-label={`Discuss your situation: ${item.title}`} />
         </article>)}
-        {ukInsights.map((item, i) => <article className="insight-card" key={item.title} data-reveal style={{ "--i": i + insights.length } as React.CSSProperties}>
-          <figure><img src={`/images/uk/${item.image}.webp`} alt="" width={960} height={640} loading="lazy" decoding="async" /></figure>
-          <div className="insight-body"><Cross /><div className="meta-table"><span>{String(i + insights.length + 1).padStart(2, "0")}</span><span>{item.category}</span></div><h3>{item.title}</h3><p>{item.excerpt}</p></div>
-          <a className="card-link" href={item.href} target="_blank" rel="noreferrer" aria-label={`Read: ${item.title}`} />
-        </article>)}
-        <a className="insight-card more" href="#contact" data-reveal><Cross /><b>Discuss your situation <Plus aria-hidden="true" /></b></a>
       </div>
     </div>
   </section>;
 }
 
-function Faq({ q, a, n, initiallyOpen }: { q: string; a: string; n: number; initiallyOpen: boolean }) {
-  const [open, setOpen] = useState(initiallyOpen);
-  return <div className={`faq-row ${open ? "is-open" : ""}`}><h3><button type="button" onClick={() => setOpen(!open)} aria-expanded={open}><span className="faq-n">{String(n).padStart(2, "0")}</span><span className="faq-q">{q}</span>{open ? <Minus aria-hidden="true" /> : <Plus aria-hidden="true" />}</button></h3><div className="faq-answer"><div><p>{a}</p></div></div></div>;
-}
 
 /* 10 — FAQ: list rows with a plus, like ARIO's recognition list. */
 function FaqSection() {
@@ -502,38 +455,22 @@ function Contact() {
     <div className="shell contact-grid">
       <div className="contact-copy" data-reveal>
         <Label>07 · Let’s connect</Label>
-        <h2 id="contact-title">Make your next move <em>count.</em></h2>
-        <p>Tell us which countries are involved and what you’re trying to do. We’ll confirm which UK or US filings apply, what it costs, and what to do next — before you commit to anything.</p>
-        <ol><li><span>01</span>We review what you have already told us.</li><li><span>02</span>We confirm which UK or US filings are likely to apply to you.</li><li><span>03</span>If it’s a fit, you get a written scope and fee.</li></ol>
-        <a className="email-call" href="mailto:info@benifactscpa.com?subject=Schedule%20a%2020-minute%20call%20%E2%80%94%20Benifacts">Or email us to schedule a 20-minute call <ArrowUpRight aria-hidden="true" /></a>
-        <dl className="offices"><div><dt>UK OFFICE</dt><dd>Office 308, Regal Court Business Centre, 42–44 High Street, Slough, Berkshire SL1 1EL<br /><a href="tel:+442035191551">+44 203 519 1551</a> · <a href="mailto:info@benifacts.co.uk">info@benifacts.co.uk</a></dd></div><div><dt>US OFFICE</dt><dd>5301 NW 100th Ave, Coral Springs, FL 33076<br /><a href="mailto:info@benifactscpa.com">info@benifactscpa.com</a></dd></div></dl>
+        <h2 id="contact-title">Ready to simplify your <em>cross-border tax?</em></h2>
+        <p>Schedule a free consultation with one of our cross-border advisory specialists. We’ll assess your current obligations and identify immediate planning opportunities at no cost—and reply within one business day.</p>
+        <ol><li><span>01</span>Initial consultation — your cross-border footprint and tax priorities.</li><li><span>02</span>Assessment &amp; scoping — obligations, exposures and engagement scope.</li><li><span>03</span>Strategy &amp; setup — a tax-efficient structure and compliance plan.</li><li><span>04</span>Ongoing advisory — compliance management and proactive planning.</li></ol>
+        <a className="email-call" href="mailto:info@benifactscpa.com?subject=Schedule%20a%20call%20%E2%80%94%20Benifacts">Schedule a call <ArrowUpRight aria-hidden="true" /></a>
+        <dl className="offices"><div><dt>EMAIL</dt><dd><a href="mailto:info@benifactscpa.com">info@benifactscpa.com</a></dd></div><div><dt>PHONE</dt><dd><a href="tel:+02079934109">+02 079 934 109</a></dd></div><div><dt>ADDRESS</dt><dd>5301 NW 100th Ave, Coral Springs, FL 33076, US</dd></div></dl>
       </div>
-      <div className="form-wrap" data-reveal><form action="https://benifacts-consulting-portfolio-170717.hostingersite.com/api/contact" method="post"><label>Full name<input name="name" type="text" placeholder="Your name" required /></label><label>Email<input name="email" type="email" placeholder="you@company.com" required /></label><div className="field-pair"><label>Company <small>(optional)</small><input name="company" type="text" placeholder="Company or entity name" /></label><label>Countries involved <small>(optional)</small><input name="countries" type="text" placeholder="e.g. US and India" /></label></div><label>What do you need help with?<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Cross-border accounting</option><option>International tax compliance (5471 / 5472 / FBAR / 8938)</option><option>Founder & expansion advisory</option><option>Virtual CFO / reporting</option><option>Catch-up / streamlined filings</option><option>UK personal tax / self-assessment</option><option>UK bookkeeping, VAT &amp; payroll</option><option>UK company formation &amp; secretarial</option><option>UK specialist advisory (healthcare, IT, SMEs)</option><option>Something else</option></select></label><label>How did you hear about us? <small>(optional)</small><select name="source" defaultValue=""><option value="" disabled>Select an option</option><option>Google Search</option><option>Social Media</option><option>Event / Webinar</option><option>Google Ad</option><option>Accounting reference</option><option>Newsletter</option></select></label><label>Tell us a little more<textarea name="message" rows={4} placeholder="Which years are open, who owns what, and what you’re trying to do. Please don’t send account or ID numbers here." required /></label><label className="consent"><input type="checkbox" required /><span>I understand this form sends general information, not advice, and that no client relationship is created until an engagement letter is signed.</span></label><button className="send" type="submit">Send message <Plus aria-hidden="true" /></button><p className="form-note">We reply within 1 business day</p><p className="fineprint">By submitting, you agree to our <a href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a>. Your information is used only to respond to your enquiry.</p></form></div>
+      <div className="form-wrap" data-reveal><form action="https://benifacts-consulting-portfolio-170717.hostingersite.com/api/contact" method="post"><label>Full name<input name="name" type="text" placeholder="Your name" required /></label><label>Email<input name="email" type="email" placeholder="you@company.com" required /></label><div className="field-pair"><label>Company <small>(optional)</small><input name="company" type="text" placeholder="Company or entity name" /></label><label>Countries involved <small>(optional)</small><input name="countries" type="text" placeholder="e.g. US and India" /></label></div><label>What do you need help with?<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Cross-border tax advisory &amp; planning</option><option>US tax compliance &amp; reporting</option><option>Sales tax planning &amp; compliance</option><option>Small business complete package</option><option>Bookkeeping, payroll &amp; business accounting</option><option>Business entity formation &amp; corporate secretary</option><option>Retirement plan (401(k)) administration</option><option>Personal tax planning / self-assessment</option><option>Estate &amp; gift tax planning</option><option>IRS audit support</option><option>Specialist advisory (healthcare, IT, SMEs)</option><option>Catch-up / streamlined filings</option><option>Something else</option></select></label><label>How did you hear about us? <small>(optional)</small><select name="source" defaultValue=""><option value="" disabled>Select an option</option><option>Google Search</option><option>Social Media</option><option>Event / Webinar</option><option>Google Ad</option><option>Accounting reference</option><option>Newsletter</option></select></label><label>Tell us a little more<textarea name="message" rows={4} placeholder="Which years are open, who owns what, and what you’re trying to do. Please don’t send account or ID numbers here." required /></label><label className="consent"><input type="checkbox" required /><span>I understand this form sends general information, not advice, and that no client relationship is created until an engagement letter is signed.</span></label><button className="send" type="submit">Send message <Plus aria-hidden="true" /></button><p className="form-note">We reply within 1 business day</p><p className="fineprint">By submitting, you agree to our <a href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a>. Your information is used only to respond to your enquiry.</p></form></div>
     </div>
   </section>;
 }
 
-/* 12 — Footer: structured columns and the oversized wordmark. */
-function Footer() {
-  return <footer className="footer" data-tone="deep">
-    <div className="shell">
-      <div className="footer-top">
-        <div className="footer-brand"><a href="#top" aria-label="Benifacts home"><Brand light /></a><p>Accounting and advisory<br /><em>for a world in motion.</em></p></div>
-        <nav className="footer-col footer-explore" aria-label="Explore"><small>EXPLORE</small>{[...nav, ["Case study", "#case-study"], ["FAQ", "#faq"]].map(([label, href]) => <a key={href} className="footer-link" href={href}>{label}</a>)}</nav>
-        <nav className="footer-col footer-connect" aria-label="Connect"><small>CONNECT</small><a className="footer-link" href="#contact">Get in touch</a><a className="footer-link" href="mailto:info@benifactscpa.com">Email us</a><a className="footer-link" href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a><a className="footer-link" href="https://www.linkedin.com/company/benifacts-accountants-uk/" target="_blank" rel="noreferrer">LinkedIn</a><a className="footer-link" href="https://www.benifacts.co.uk/" target="_blank" rel="noreferrer">UK website</a><a className="footer-link" href="https://www.benifactscpa.com/" target="_blank" rel="noreferrer">US website</a></nav>
-        <dl className="footer-col footer-contacts"><small>CONTACTS</small><div><dt>UK CONTACT</dt><dd><a href="tel:+442035191551">+44 203 519 1551</a><br /><a href="mailto:info@benifacts.co.uk">info@benifacts.co.uk</a></dd></div><div><dt>US CONTACT</dt><dd><a href="mailto:info@benifactscpa.com">info@benifactscpa.com</a></dd></div><div><dt>US OFFICE HOURS</dt><dd>Mon–Fri, 9am–6pm US Eastern</dd></div><div><dt>RESPONSE TIME</dt><dd>Replies within 1 business day</dd></div><div><dt>UK OFFICE</dt><dd>Office 308, Regal Court Business Centre, 42–44 High Street, Slough, Berkshire SL1 1EL</dd></div><div><dt>US OFFICE</dt><dd>5301 NW 100th Ave, Coral Springs, FL 33076</dd></div><div><dt>SENDING DOCUMENTS</dt><dd>Documents move through a secure portal — never as email attachments.</dd></div></dl>
-      </div>
-      <div className="footer-bottom"><p>© 2026 Benifacts. All rights reserved.</p><p>Slough, UK · Coral Springs, Florida · Serving clients across the UK, the US and abroad</p><a href="#top">BACK TO TOP ↑</a></div>
-      <p className="disclaimer">This is general information, not tax, legal, or accounting advice. No client relationship or engagement is created until an engagement letter is signed by both parties. Beneficial Ownership Information (BOI) reporting obligations depend on current FinCEN guidance, including any applicable exemptions for US-formed entities; confirm your position before acting.</p>
-    </div>
-    <Wordmark className="footer-wordmark" />
-  </footer>;
-}
 
 function Index() {
   useEditorialMotion();
   return <div className="site">
-    <div className="intro-curtain" aria-hidden="true"><Brand light /></div>
+    <div className="intro-curtain" aria-hidden="true"><Brand /></div>
     <div className="tone-canvas" aria-hidden="true"><div className="tone-noise" /></div>
     <GraffitiCursor />
     <Header />

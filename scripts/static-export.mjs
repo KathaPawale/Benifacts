@@ -2,7 +2,7 @@
 // Run via `npm run build:static`; the upload-ready files end up in `hostinger-upload/`
 // (plus `benifacts-hostinger.zip` when the `zip` command is available).
 import { spawn, execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
 const PORT = 4199;
 const OUT = "hostinger-upload";
@@ -29,6 +29,14 @@ try {
   mkdirSync(OUT, { recursive: true });
   cpSync(".output/public", OUT, { recursive: true });
   writeFileSync(`${OUT}/index.html`, html);
+  // Service pages: one folder per service so /services/<slug>/ works on plain static hosting.
+  const slugs = [...readFileSync("src/lib/services.ts", "utf8").matchAll(/^    slug: "([a-z-]+)"/gm)].map((m) => m[1]);
+  for (const slug of slugs) {
+    const response = await fetch(`http://127.0.0.1:${PORT}/services/${slug}`);
+    if (!response.ok) throw new Error(`/services/${slug} returned ${response.status}`);
+    mkdirSync(`${OUT}/services/${slug}`, { recursive: true });
+    writeFileSync(`${OUT}/services/${slug}/index.html`, await response.text());
+  }
   // Apache (Hostinger shared hosting): serve index.html for "/", cache hashed assets, compress text.
   writeFileSync(`${OUT}/.htaccess`, [
     "DirectoryIndex index.html",

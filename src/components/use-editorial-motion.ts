@@ -3,11 +3,11 @@ import Lenis from "lenis";
 
 /** Section background tones (sRGB of the brand oklch tokens in styles.css). */
 const TONES: Record<string, [number, number, number]> = {
-  paper: [245, 252, 250],
-  mist: [227, 244, 243],
+  paper: [245, 251, 255],
+  mist: [228, 243, 252],
   navy: [6, 25, 37],
   deep: [1, 13, 23],
-  ocean: [4, 62, 74],
+  ocean: [5, 58, 92],
 };
 
 const smooth = (t: number) => t * t * (3 - 2 * t);

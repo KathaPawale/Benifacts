@@ -9,6 +9,8 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    // Static hosting serves service pages from folders (/services/<slug>/), so keep whichever form was requested.
+    trailingSlash: "preserve",
     defaultPreloadStaleTime: 0,
   });
 

@@ -23,7 +23,7 @@ export function GraffitiCursor() {
       particles=particles.filter(p=>now-p.t<850);
       dirty={x0:Infinity,y0:Infinity,x1:-Infinity,y1:-Infinity,any:particles.length>0};
       for(const p of particles){if(p.x<dirty.x0)dirty.x0=p.x;if(p.y<dirty.y0)dirty.y0=p.y;if(p.x>dirty.x1)dirty.x1=p.x;if(p.y>dirty.y1)dirty.y1=p.y}
-      ctx.fillStyle="#76d4d1";
+      ctx.fillStyle="#77c9f3";
       particles.forEach(p=>{ctx.globalAlpha=p.a*Math.max(0,1-(now-p.t)/850);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()});
       ctx.globalAlpha=1;
       if(particles.length)frame=requestAnimationFrame(draw);
