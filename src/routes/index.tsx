@@ -3,7 +3,8 @@ import { GraffitiCursor } from "../components/graffiti-cursor";
 import { createFileRoute } from "@tanstack/react-router";
 import { Brand, Cross, Faq, Footer, Header, Label } from "../components/site-chrome";
 import { services as servicePages } from "../lib/services";
-import { ArrowDown, ArrowUpRight, Briefcase, HardHat, HeartPulse, Menu, Minus, Monitor, Plane, Plus, Rocket, ShoppingBag, X } from "lucide-react";
+import { FancySelect, type SelectGroup } from "../components/fancy-select";
+import { ArrowDown, ArrowUpRight, Briefcase, Building, CalendarDays, Globe2, Landmark, Mail, Megaphone, Search, Share2, UserRound, Users, HardHat, HeartPulse, Menu, Minus, Monitor, Plane, Plus, Rocket, ShoppingBag, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Hero background playlist — plays in this order, then loops back to the first clip.
@@ -14,8 +15,7 @@ const heroClips = [
 ] as const;
 const heroPoster = "/images/hero-poster.jpg";
 const founderImage = "/images/benifacts-founder-cutout.png";
-// Founder’s LinkedIn — swap in the personal profile URL once confirmed (company page until then).
-const founderLinkedIn = "https://www.linkedin.com/company/benifacts-accountants-uk/";
+const founderLinkedIn = "https://www.linkedin.com/in/hardik-shah-cpa-98957916";
 // If a local image file is missing, fall back to the copy stored in the Lovable project.
 const LOVABLE_ASSETS = "https://id-preview--ec736e6a-a9cc-443e-8179-4339a84b1913.lovable.app/__l5e/assets-v1";
 const lovableFallback: Record<string, string> = {
@@ -78,9 +78,9 @@ const faqs: Array<[string, string]> = [
 const industries = [["IT services", Monitor], ["Tech startups", Rocket], ["Healthcare", HeartPulse], ["Contractors & SMEs", HardHat], ["Retail", ShoppingBag], ["Relocation", Plane]] as const;
 
 const caseChapters = [
-  { label: "SITUATION", text: "An overseas owner operating through a US LLC had no prior US reporting. Ownership and transactions spanned two countries." },
-  { label: "WORK PERFORMED", text: "Prepared pro forma 1120 and Form 5472, reviewed reportable transactions, and assessed Beneficial Ownership Information (BOI) reporting obligations under current FinCEN guidance." },
-  { label: "OUTCOME", text: "Open years filed on a single calendar, with a documented position on BOI and a forward compliance plan." },
+  { label: "SITUATION", text: "An overseas owner’s US LLC had no prior US reporting." },
+  { label: "WORK PERFORMED", text: "Prepared pro forma 1120 and Form 5472, and reviewed BOI reporting." },
+  { label: "OUTCOME", text: "Open years filed on one calendar, with a forward compliance plan." },
 ];
 
 const filings = ["5471", "5472", "FBAR", "8938", "2555", "1116"];
@@ -88,10 +88,38 @@ const filings = ["5471", "5472", "FBAR", "8938", "2555", "1116"];
 // Figures published on benifacts.co.uk.
 const stats: Array<[string, string]> = [["10+", "Years of excellence"], ["200+", "Happy clients across the US"], ["100%", "Paperless operations"], ["65%", "Referral business"]];
 
+// Contact form choices, grouped so the menu reads like a short directory.
+const serviceOptions: SelectGroup[] = [
+  { label: "Cross-border & tax", options: [
+    { value: "Cross-border tax advisory & planning", hint: "FBAR, FATCA, treaties, structuring", Icon: Globe2 },
+    { value: "US tax compliance & reporting", hint: "Federal, state and international returns", Icon: Landmark },
+    { value: "Sales tax planning & compliance", hint: "Nexus, registration, voluntary disclosure", Icon: ShoppingBag },
+    { value: "Catch-up / streamlined filings", hint: "Bring open years current", Icon: CalendarDays },
+  ] },
+  { label: "Businesses", options: [
+    { value: "Small business complete package", hint: "Accounting, payroll, tax and advisory", Icon: Briefcase },
+    { value: "Bookkeeping, payroll & business accounting", hint: "Monthly books, W-2s and 1099s", Icon: Building },
+    { value: "Business entity formation & corporate secretary", hint: "LLC, corporation, non-profit", Icon: Building },
+    { value: "Retirement plan (401(k)) administration", hint: "Setup, contributions, compliance", Icon: Users },
+    { value: "Specialist advisory (healthcare, IT, SMEs)", hint: "Sector-specific planning", Icon: HeartPulse },
+  ] },
+  { label: "Individuals", options: [
+    { value: "Personal tax planning / self-assessment", hint: "Returns, deductions, year-round guidance", Icon: UserRound },
+    { value: "Estate & gift tax planning", hint: "Trusts, gifting, succession", Icon: UserRound },
+    { value: "IRS audit support", hint: "Preparation and representation", Icon: Landmark },
+  ] },
+  { options: [{ value: "Something else", hint: "Tell us below", Icon: Plus }] },
+];
+const sourceOptions: SelectGroup[] = [{ options: [
+  { value: "Google Search", Icon: Search }, { value: "Social Media", Icon: Share2 }, { value: "Event / Webinar", Icon: CalendarDays },
+  { value: "Google Ad", Icon: Megaphone }, { value: "Accounting reference", Icon: Users }, { value: "Newsletter", Icon: Mail },
+] }];
+
+// Client testimonials as published on benifacts.co.uk and benifactscpa.com.
 const testimonials: Array<[string, string]> = [
-  ["Benifacts offered clear guidance and ensured my tax returns were filed accurately and on time. They’ve saved me both time and money.", "General Practitioner, London"],
-  ["Their knowledge of HMRC’s regulations was impressive. Thanks to their help, we secured significant savings on our R&D tax credits.", "Technology Company, Manchester"],
-  ["Benifacts took the stress out of VAT and bookkeeping. Their regular reports give me clear visibility of my finances.", "Retail Business Owner, Birmingham"],
+  ["As a GP managing a busy practice, I struggled to keep on top of my personal tax affairs. Benifacts offered clear guidance and ensured my tax returns were filed accurately and on time. Their expertise in handling medical professionals’ unique financial challenges has saved me both time and money.", "General Practitioner, London"],
+  ["We approached Benifacts to assist with claiming R&D tax credits for our software development firm. Their in-depth knowledge of the regulations was impressive, and they guided us through the entire process seamlessly. Thanks to their help, we secured significant savings that we reinvested in our innovation projects.", "Technology Company, Manchester"],
+  ["Running a small retail business, I was overwhelmed by the complexities of sales tax submissions and day-to-day bookkeeping. Benifacts took the stress out of the process with their efficient and professional approach. Their regular reports give me clear visibility of my finances, which has been invaluable for making business decisions.", "Retail Business Owner, Birmingham"],
 ];
 
 // Illustrative CC0 stock photography (see IMAGE_CREDITS.md) — chosen by topic, never presented as Benifacts staff or clients.
@@ -292,14 +320,14 @@ function Founder() {
   return <section className="founder-spotlight section-pad" data-tone="navy" aria-labelledby="founder-title">
       <div className="shell founder-grid">
         <figure className="founder-photo" data-reveal="image">
-          <SiteImage src={founderImage} alt="Founder and Lead CPA of Benifacts" width={1254} height={1254} loading="lazy" decoding="async" />
-          <a className="founder-linkedin" href={founderLinkedIn} target="_blank" rel="noreferrer" aria-label="Founder on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg></a>
+          <SiteImage src={founderImage} alt="Hardik Shah, Founder and Lead CPA of Benifacts" width={1254} height={1254} loading="lazy" decoding="async" />
+          <a className="founder-linkedin" href={founderLinkedIn} target="_blank" rel="noreferrer" aria-label="Hardik Shah on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg></a>
         </figure>
         <div className="founder-bio" data-reveal>
-          <h2 id="founder-title" className="founder-role">Founder &amp; Lead CPA</h2>
-          <p className="founder-practice">Cross-border US international tax &amp; advisory</p>
+          <h2 id="founder-title" className="founder-role">Hardik Shah, CPA</h2>
+          <p className="founder-practice">Founder &amp; Lead CPA · Cross-border US international tax &amp; advisory</p>
           <ul><li>Licensed Certified Public Accountant (CPA) — jurisdiction and licence number to be confirmed and displayed here.</li><li>Specialisation in US international filings: Forms 5471, 5472, FBAR, 8938, and related reporting.</li><li>Experience with inbound, outbound, and expat cross-border engagements.</li><li>Member of professional body — details to be confirmed.</li></ul>
-          <div className="founder-bio-foot"><small>Specific name, credentials, and licence details will appear here once confirmed. We do not publish unverified credentials.</small><a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a></div>
+          <div className="founder-bio-foot"><a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a></div>
         </div>
       </div>
     </section>;
@@ -384,13 +412,13 @@ function WhoWeHelp() {
 function CaseStudy() {
   return <section id="case-study" className="case section-pad" data-tone="mist" aria-labelledby="case-title">
     <div className="shell case-spread">
-      <figure className="case-visual" data-reveal="image" aria-hidden="true"><StockImage name="case-filings" alt="" sizes="(max-width: 900px) 100vw, 50vw" /></figure>
+      <figure className="case-visual" data-progress="scrub" aria-hidden="true"><StockImage name="case-filings" alt="" sizes="(max-width: 900px) 100vw, 50vw" /></figure>
       <div className="case-card" data-reveal>
         <Cross />
         <div className="meta-table"><span>CASE STUDY</span><span>CROSS-BORDER COMPLIANCE</span></div>
-        <h2 id="case-title">Foreign-owned US entity brought current with 5472 and BOI reporting</h2>
+        <h2 id="case-title">Foreign-owned US entity brought current</h2>
         <ol className="case-chapters">{caseChapters.map((c) => <li key={c.label}><small>{c.label}</small><p>{c.text}</p></li>)}</ol>
-        <p className="fineprint">Illustrative composite based on typical engagements. Identifying details withheld. Figures and specifics to be confirmed before promotion.</p>
+        <p className="fineprint">Illustrative example; identifying details withheld.</p>
       </div>
     </div>
   </section>;
@@ -461,7 +489,7 @@ function Contact() {
         <a className="email-call" href="mailto:info@benifactscpa.com?subject=Schedule%20a%20call%20%E2%80%94%20Benifacts">Schedule a call <ArrowUpRight aria-hidden="true" /></a>
         <dl className="offices"><div><dt>EMAIL</dt><dd><a href="mailto:info@benifactscpa.com">info@benifactscpa.com</a></dd></div><div><dt>PHONE</dt><dd><a href="tel:+02079934109">+02 079 934 109</a></dd></div><div><dt>ADDRESS</dt><dd>BENIFACTS Inc, 5301 NW 100th Ave, Coral Springs, FL 33076, US</dd></div></dl>
       </div>
-      <div className="form-wrap" data-reveal><form action="https://benifacts-consulting-portfolio-170717.hostingersite.com/api/contact" method="post"><label>Full name<input name="name" type="text" placeholder="Your name" required /></label><label>Email<input name="email" type="email" placeholder="you@company.com" required /></label><div className="field-pair"><label>Company <small>(optional)</small><input name="company" type="text" placeholder="Company or entity name" /></label><label>Countries involved <small>(optional)</small><input name="countries" type="text" placeholder="e.g. US and India" /></label></div><label>What do you need help with?<select name="service" defaultValue=""><option value="" disabled>Select a service</option><option>Cross-border tax advisory &amp; planning</option><option>US tax compliance &amp; reporting</option><option>Sales tax planning &amp; compliance</option><option>Small business complete package</option><option>Bookkeeping, payroll &amp; business accounting</option><option>Business entity formation &amp; corporate secretary</option><option>Retirement plan (401(k)) administration</option><option>Personal tax planning / self-assessment</option><option>Estate &amp; gift tax planning</option><option>IRS audit support</option><option>Specialist advisory (healthcare, IT, SMEs)</option><option>Catch-up / streamlined filings</option><option>Something else</option></select></label><label>How did you hear about us? <small>(optional)</small><select name="source" defaultValue=""><option value="" disabled>Select an option</option><option>Google Search</option><option>Social Media</option><option>Event / Webinar</option><option>Google Ad</option><option>Accounting reference</option><option>Newsletter</option></select></label><label>Tell us a little more<textarea name="message" rows={4} placeholder="Which years are open, who owns what, and what you’re trying to do. Please don’t send account or ID numbers here." required /></label><label className="consent"><input type="checkbox" required /><span>I understand this form sends general information, not advice, and that no client relationship is created until an engagement letter is signed.</span></label><button className="send" type="submit">Send message <Plus aria-hidden="true" /></button><p className="form-note">We reply within 1 business day</p><p className="fineprint">By submitting, you agree to our <a href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a>. Your information is used only to respond to your enquiry.</p></form></div>
+      <div className="form-wrap" data-reveal><form action="https://benifacts-consulting-portfolio-170717.hostingersite.com/api/contact" method="post"><label>Full name<input name="name" type="text" placeholder="Your name" required /></label><label>Email<input name="email" type="email" placeholder="you@company.com" required /></label><div className="field-pair"><label>Company <small>(optional)</small><input name="company" type="text" placeholder="Company or entity name" /></label><label>Countries involved <small>(optional)</small><input name="countries" type="text" placeholder="e.g. US and India" /></label></div><FancySelect name="service" label="What do you need help with?" placeholder="Select a service" groups={serviceOptions} /><FancySelect name="source" label="How did you hear about us?" optional placeholder="Select an option" groups={sourceOptions} /><label>Tell us a little more<textarea name="message" rows={4} placeholder="Which years are open, who owns what, and what you’re trying to do. Please don’t send account or ID numbers here." required /></label><label className="consent"><input type="checkbox" required /><span>I understand this form sends general information, not advice, and that no client relationship is created until an engagement letter is signed.</span></label><button className="send" type="submit">Send message <Plus aria-hidden="true" /></button><p className="form-note">We reply within 1 business day</p><p className="fineprint">By submitting, you agree to our <a href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a>. Your information is used only to respond to your enquiry.</p></form></div>
     </div>
   </section>;
 }
@@ -469,6 +497,14 @@ function Contact() {
 
 function Index() {
   useEditorialMotion();
+  useEffect(() => {
+    // Reloads land on the hero video, not wherever the visitor last scrolled to.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    if (location.hash) return;
+    window.scrollTo(0, 0);
+    const again = requestAnimationFrame(() => window.scrollTo(0, 0));
+    return () => cancelAnimationFrame(again);
+  }, []);
   return <div className="site">
     <div className="intro-curtain" aria-hidden="true"><Brand /></div>
     <div className="tone-canvas" aria-hidden="true"><div className="tone-noise" /></div>

@@ -105,6 +105,8 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Stop the browser restoring the last scroll position, so a reload always opens at the top. */}
+        <script dangerouslySetInnerHTML={{ __html: 'if("scrollRestoration"in history)history.scrollRestoration="manual";if(!location.hash)scrollTo(0,0);' }} />
       </head>
       <body>
         {children}

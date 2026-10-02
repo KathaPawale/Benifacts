@@ -23,6 +23,41 @@ The homepage now uses topic-matched stock photography, stored in `public/images/
 | `insight-calendar` | Insights 03 | Calendar Display | CC0 (StockSnap) | https://stocksnap.io/photo/calendar-display-ZI905NZJY1 |
 | `contact-tower` | Contact backdrop | Architecture Buildings | CC0 (StockSnap) | https://stocksnap.io/photo/architecture-buildings-S866QK4GXI |
 
+## Service page photography (added 2 October 2026)
+
+Stored in `public/images/services/` as WebP (640 and 1280 px wide). All are **CC0** photographs from StockSnap, found through the Openverse catalogue: free for commercial use, no attribution required. Illustrative only — not Benifacts staff, clients or premises.
+
+| File prefix | Original title | License | Source page |
+| --- | --- | --- | --- |
+| `cb-hero` | Background Travel | CC0 (StockSnap) | https://stocksnap.io/photo/background-travel-HJGIY622S1 |
+| `cb-1` | Global Map | CC0 (StockSnap) | https://stocksnap.io/photo/global-map-UN4MECXXU6 |
+| `tc-hero` | Accounting Finance | CC0 (StockSnap) | https://stocksnap.io/photo/accounting-finance-JONMP7TPGK |
+| `tc-1` | Writing Papers | CC0 (StockSnap) | https://stocksnap.io/photo/writing-papers-Y01VDYAX63 |
+| `st-hero` | Box Boxes | CC0 (StockSnap) | https://stocksnap.io/photo/box-boxes-WP1KHDXGOY |
+| `st-1` | Seo Computer | CC0 (StockSnap) | https://stocksnap.io/photo/seo-computer-959IURDRGJ |
+| `sb-hero` | Conferenceroom Meeting | CC0 (StockSnap) | https://stocksnap.io/photo/conferenceroom-meeting-GVUWVKUHZE |
+| `sb-1` | Macbook Laptop | CC0 (StockSnap) | https://stocksnap.io/photo/macbook-laptop-F7OLW2SG0C |
+| `in-hero` | Team Meeting | CC0 (StockSnap) | https://stocksnap.io/photo/team-meeting-JBW2PXDOL6 |
+| `in-1` | Calculator Numbers | CC0 (StockSnap) | https://stocksnap.io/photo/calculator-numbers-VVXW9WBTB8 |
+| `in-2` | Office Work | CC0 (StockSnap) | https://stocksnap.io/photo/office-work-UP9J4EZYNJ |
+| `in-3` | Pen Notepad | CC0 (StockSnap) | https://stocksnap.io/photo/pen-notepad-SJ5CP8HTI1 |
+| `in-4` | Book Reading | CC0 (StockSnap) | https://stocksnap.io/photo/book-reading-H07QQ5ZX7S |
+| `bf-hero` | Guy Man | CC0 (StockSnap) | https://stocksnap.io/photo/guy-man-UYPK53YC65 |
+| `bf-1` | Team Meeting | CC0 (StockSnap) | https://stocksnap.io/photo/team-meeting-VQXYE2ZEHC |
+| `bf-2` | Office Work | CC0 (StockSnap) | https://stocksnap.io/photo/office-work-42H3JH8QI5 |
+| `bf-3` | Calculator Numbers | CC0 (StockSnap) | https://stocksnap.io/photo/calculator-numbers-JY874BSKKC |
+| `bf-4` | Buildings Architecture | CC0 (StockSnap) | https://stocksnap.io/photo/buildings-architecture-GW653JPGTX |
+| `bf-5` | Google Analytics | CC0 (StockSnap) | https://stocksnap.io/photo/google-analytics-89AZTB8E5H |
+| `bf-6` | Business Working | CC0 (StockSnap) | https://stocksnap.io/photo/business-working-S3JE5YAMND |
+| `cs-hero` | Building Architecture | CC0 (StockSnap) | https://stocksnap.io/photo/building-architecture-ONN4Z188GF |
+| `cs-1` | Work Business | CC0 (StockSnap) | https://stocksnap.io/photo/work-business-J5LXKNDREC |
+| `cs-2` | Desk Office | CC0 (StockSnap) | https://stocksnap.io/photo/desk-office-QUR0CQODB2 |
+| `cs-3` | Calculator Numbers | CC0 (StockSnap) | https://stocksnap.io/photo/calculator-numbers-Y2GUBQIPXD |
+| `sa-hero` | Woman Developers | CC0 (StockSnap) | https://stocksnap.io/photo/woman-developers-FVWLQXWZ1P |
+| `sa-1` | Doctor Mask | CC0 (StockSnap) | https://stocksnap.io/photo/doctor-mask-GWE6UQDBTN |
+| `sa-2` | Coding Programming | CC0 (StockSnap) | https://stocksnap.io/photo/coding-programming-MJZPCHLERD |
+| `sa-3` | Team Meeting | CC0 (StockSnap) | https://stocksnap.io/photo/team-meeting-84GOP2OAKR |
+
 The earlier photographs documented below (Canary Wharf architecture, case-study, approach, contact and placeholder team images) were removed from `public/images/` on 1 October 2026; their records are kept for provenance only.
 
 ## Added architecture photographs
