@@ -920,3 +920,10 @@ select {
 .fselect-panel b { display: block; font-size: 14px; font-weight: 600; }
 .fselect-panel small { display: block; margin-top: 2px; font-size: 12px; color: oklch(.5 .03 230); }
 .fselect-check { width: 16px; height: 16px; color: var(--teal); }
+
+/* Insights — official reference links */
+.resource-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 22px; margin-top: clamp(28px, 3vw, 40px); padding-top: 22px; border-top: 1px solid var(--line); }
+.resource-links span { font: 600 11px/1 var(--sans); letter-spacing: .16em; color: var(--ink-soft); }
+.resource-links a { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--accent); }
+.resource-links a svg { width: 14px; height: 14px; transition: transform .3s var(--ease); }
+.resource-links a:hover svg { transform: translate(2px, -2px); }

@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Brand, Cross, Faq, Footer, Header, Label } from "../components/site-chrome";
 import { services as servicePages } from "../lib/services";
 import { FancySelect, type SelectGroup } from "../components/fancy-select";
-import { ArrowDown, ArrowUpRight, Briefcase, Building, CalendarDays, Globe2, Landmark, Mail, Megaphone, Search, Share2, UserRound, Users, HardHat, HeartPulse, Menu, Minus, Monitor, Plane, Plus, Rocket, ShoppingBag, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Briefcase, Building, Building2, CalendarDays, Globe2, Landmark, Mail, Megaphone, Search, Share2, UserRound, Users, HardHat, HeartPulse, Menu, Minus, Monitor, Plus, Rocket, ShoppingBag, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Hero background playlist — plays in this order, then loops back to the first clip.
@@ -23,7 +23,7 @@ const lovableFallback: Record<string, string> = {
 };
 const CROSSFADE_MS = 800;
 
-const metaDescription = "Benifacts is a cross-border CPA firm in Coral Springs, Florida — cross-border tax advisory, US tax compliance, sales tax planning and complete small-business services for individuals, startups and businesses operating between the US and beyond.";
+const metaDescription = "Benifacts is a US CPA-led cross-border accounting and tax advisory firm in Coral Springs, Florida for foreign-owned US businesses, global founders, expats and US companies expanding internationally — Forms 5471, 5472, FBAR, FATCA, entity setup, sales tax and compliance.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,9 +35,9 @@ export const Route = createFileRoute("/")({
       { rel: "preload", as: "image", href: "/images/benifacts-original.svg", type: "image/svg+xml" },
     ],
     meta: [
-      { title: "Benifacts | Cross-Border CPA Firm · US International Tax & Advisory" },
+      { title: "Benifacts | Cross-Border Accounting & Tax Advisory · US CPA Firm" },
       { name: "description", content: metaDescription },
-      { property: "og:title", content: "Benifacts | Cross-Border CPA Firm · US International Tax & Advisory" },
+      { property: "og:title", content: "Benifacts | Cross-Border Accounting & Tax Advisory · US CPA Firm" },
       { property: "og:description", content: metaDescription },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/images/benifacts-og.png" },
@@ -50,18 +50,18 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { number: "01", title: "Cross-border tax advisory & planning", lead: "International tax clarity.", body: "Strategic guidance for non-resident individuals, foreign-owned businesses and Americans abroad—FBAR, FATCA, treaty positions and optimized structures.", tags: "TREATY ANALYSIS  /  FBAR & FATCA  /  STRUCTURING  /  TRANSFER PRICING  /  EXPAT TAX", href: "/services/cross-border-advisory/" },
-  { number: "02", title: "US tax compliance & planning", lead: "Every return, on time.", body: "Federal and state filings for individuals and every entity type—Forms 1040, 1120, 1065 and all international information returns—with IRS audit representation.", tags: "FEDERAL & STATE  /  5471  /  5472  /  8865  /  8938  /  IRS AUDIT", href: "/services/us-tax-compliance/" },
+  { number: "01", title: "Cross-border tax advisory & planning", lead: "International tax clarity.", body: "Inbound and outbound structuring, treaty positions and transfer pricing—plus pre- and post-migration planning for non-residents, Green Card and EB-5 holders.", tags: "INBOUND / OUTBOUND  /  TREATIES  /  TRANSFER PRICING  /  MIGRATION PLANNING", href: "/services/cross-border-advisory/" },
+  { number: "02", title: "US tax compliance & planning", lead: "Every return, on time.", body: "Federal and state returns with international disclosures—Forms 1120, 1065, 5471, 5472, 1042/1042-S and BOI reporting—with IRS audit representation.", tags: "1120 / 1065  /  5471 / 5472  /  1042-S  /  BOI  /  IRS AUDIT", href: "/services/us-tax-compliance/" },
   { number: "03", title: "US sales tax planning & compliance", lead: "Know where you have nexus.", body: "Multi-state sales tax obligations, economic nexus thresholds and voluntary disclosure—keeping your business compliant without over-paying.", tags: "NEXUS ANALYSIS  /  VOLUNTARY DISCLOSURE  /  REGISTRATION  /  RETURN FILING", href: "/services/sales-tax/" },
-  { number: "04", title: "Small business complete package", lead: "Everything under one roof.", body: "Bookkeeping, payroll, corporate tax, 401(k) administration and business entity formation—LLC, corporation or non-profit—coordinated by your Primary Account Manager.", tags: "BOOKKEEPING  /  PAYROLL & 1099  /  CORPORATE TAX  /  401(K)  /  ENTITY FORMATION", href: "/services/small-business/" },
+  { number: "04", title: "Company setup & small business package", lead: "Everything under one roof.", body: "LLC, C-Corp and S-Corp formation, then bookkeeping, payroll and ongoing corporate compliance—coordinated by your Primary Account Manager.", tags: "LLC / C-CORP / S-CORP  /  BOOKKEEPING  /  PAYROLL & 1099  /  COMPLIANCE", href: "/services/small-business/" },
 ];
 
 
 const clients: Array<[string, string, string]> = [
-  ["01", "Foreign companies entering the US", "5472, pro forma 1120, state nexus, and Beneficial Ownership Information (BOI) reporting where it applies to overseas owners setting up or running a US entity."],
-  ["02", "US companies expanding abroad", "5471, 8858, 926, and GILTI/Subpart F for US parents funding subsidiaries or hiring overseas."],
-  ["03", "Founders & expats with global income", "Forms 2555/1116, FBAR, and 8938 for US people living and earning in more than one country."],
-  ["04", "Behind on US filings", "Streamlined procedures, delinquent FBAR, and reasonable cause—catch-up routes before the IRS makes contact."],
+  ["01", "Foreign company expanding to the U.S.", "U.S. entity structuring, treaty optimization, Forms 5472 and 1120/1065 with international disclosures, 1042/1042-S withholding, payroll, sales tax and BOI reporting."],
+  ["02", "U.S. company expanding overseas", "Forms 5471, 8865 and 926, GILTI and Subpart F analysis, permanent-establishment risk and profit repatriation planning."],
+  ["03", "Founders, expats & global professionals", "FBAR, FATCA, foreign earned income exclusion, foreign investments, dual-country planning and IRS international audits."],
+  ["04", "Individuals & families moving to the U.S.", "Pre- and post-migration tax planning for non-residents, Green Card and EB-5 visa holders, and U.S. citizens preparing to relocate."],
 ];
 
 const faqs: Array<[string, string]> = [
@@ -69,24 +69,29 @@ const faqs: Array<[string, string]> = [
   ["What is a Primary Account Manager (PAM)?", "Your dedicated point of contact at Benifacts. They own the relationship, coordinate all service delivery, and lead your advisory—so you never re-explain your situation every year."],
   ["Do I need to file US taxes if I live or am incorporated outside the US?", "Potentially, yes. US citizens and permanent residents are taxed on worldwide income, and non-US individuals and foreign corporations may have filing obligations too. We determine your exact obligations."],
   ["What are FBAR and FATCA, and do I need to report?", "FBAR (FinCEN Form 114) applies to US persons whose foreign financial accounts exceed $10,000 at any point in the year. FATCA (Form 8938) covers specified foreign financial assets above certain thresholds. We handle both filings."],
+  ["Do you help with pre- and post-migration tax planning?", "Yes. We advise non-residents, Green Card and EB-5 visa holders, and U.S. citizens preparing to move—planning before the move and handling compliance after it."],
   ["How does Benifacts handle bookkeeping and payroll for small businesses?", "Bookkeeping, payroll and routine compliance are delivered through our trusted outsourced delivery partners, coordinated and overseen by your Primary Account Manager."],
   ["How quickly can Benifacts onboard a new client?", "Onboarding typically takes one to two weeks. For urgent filings we can prioritize the initial assessment and begin work within days of engagement."],
   ["Does Benifacts work with startups and early-stage businesses?", "Yes. Getting the structure right from the beginning—entity type, tax elections, cross-border considerations—avoids costly restructuring later."],
 ];
 
 
-const industries = [["IT services", Monitor], ["Tech startups", Rocket], ["Healthcare", HeartPulse], ["Contractors & SMEs", HardHat], ["Retail", ShoppingBag], ["Relocation", Plane]] as const;
+const industries = [["Tech startups", Rocket], ["IT services", Monitor], ["Real estate", Building2], ["HNIs & investment vehicles", Landmark], ["Healthcare", HeartPulse], ["Contractors & SMEs", HardHat]] as const;
 
+// Case study in the marketing plan's format: situation, challenge, forms, approach, outcome.
 const caseChapters = [
-  { label: "SITUATION", text: "An overseas owner’s US LLC had no prior US reporting." },
-  { label: "WORK PERFORMED", text: "Prepared pro forma 1120 and Form 5472, and reviewed BOI reporting." },
+  { label: "CLIENT SITUATION", text: "An overseas owner’s US LLC had no prior US reporting." },
+  { label: "CROSS-BORDER CHALLENGE", text: "Ownership and transactions spanned two countries, with penalties accruing on unfiled years." },
+  { label: "FORMS INVOLVED", text: "Pro forma 1120, Form 5472 and BOI reporting." },
+  { label: "BENIFACTS APPROACH", text: "Mapped every open year, prepared the filings and documented each position." },
   { label: "OUTCOME", text: "Open years filed on one calendar, with a forward compliance plan." },
 ];
 
-const filings = ["5471", "5472", "FBAR", "8938", "2555", "1116"];
+// Plan B capability strip: the high-penalty international filings Benifacts manages.
+const filings: Array<[string, string]> = [["5471", "Controlled foreign corporations"], ["5472", "Foreign-owned U.S. entities"], ["FBAR", "FinCEN Form 114"], ["8938", "FATCA reporting"], ["2555", "Foreign earned income exclusion"], ["1116", "Foreign tax credits"]];
 
 // Figures published on benifacts.co.uk.
-const stats: Array<[string, string]> = [["10+", "Years of excellence"], ["200+", "Happy clients across the US"], ["100%", "Paperless operations"], ["65%", "Referral business"]];
+const stats: Array<[string, string]> = [["10+", "Years of excellence"], ["200+", "U.S. clients served"], ["100%", "Paperless operations"], ["65%", "Referral business"]];
 
 // Contact form choices, grouped so the menu reads like a short directory.
 const serviceOptions: SelectGroup[] = [
@@ -110,6 +115,14 @@ const serviceOptions: SelectGroup[] = [
   ] },
   { options: [{ value: "Something else", hint: "Tell us below", Icon: Plus }] },
 ];
+const resources: Array<[string, string]> = [["IRS", "https://www.irs.gov"], ["FinCEN (FBAR)", "https://www.fincen.gov"], ["U.S. Treasury", "https://home.treasury.gov"], ["AICPA", "https://www.aicpa-cima.com"], ["Accounting Today", "https://www.accountingtoday.com"]];
+const situationOptions: SelectGroup[] = [{ options: [
+  { value: "Foreign company expanding to the U.S.", hint: "Inbound", Icon: Globe2 },
+  { value: "U.S. company expanding overseas", hint: "Outbound", Icon: Building },
+  { value: "Founder, expat or global professional", hint: "Global income and assets", Icon: UserRound },
+  { value: "Moving to or from the U.S.", hint: "Pre- or post-migration planning", Icon: CalendarDays },
+  { value: "U.S. business or individual", hint: "Domestic tax, accounting and compliance", Icon: Landmark },
+] }];
 const sourceOptions: SelectGroup[] = [{ options: [
   { value: "Google Search", Icon: Search }, { value: "Social Media", Icon: Share2 }, { value: "Event / Webinar", Icon: CalendarDays },
   { value: "Google Ad", Icon: Megaphone }, { value: "Accounting reference", Icon: Users }, { value: "Newsletter", Icon: Mail },
@@ -132,9 +145,9 @@ const serviceImages: Record<string, { name: string; alt: string }> = {
 };
 const clientImages: Record<string, { name: string; alt: string }> = {
   "01": { name: "client-us-skyline", alt: "Aerial view of a US city skyline" },
-  "02": { name: "client-airport", alt: "Aircraft parked at airport gates" },
+  "02": { name: "client-catch-up", alt: "A businessman working at a laptop" },
   "03": { name: "client-remote-founder", alt: "A man on a video call working from home" },
-  "04": { name: "client-catch-up", alt: "A businessman at a laptop holding his head in concern" },
+  "04": { name: "client-airport", alt: "Aircraft parked at airport gates" },
 };
 
 // Short editorial notes. Every fact restates a service already described on this page.
@@ -326,7 +339,7 @@ function Founder() {
         <div className="founder-bio" data-reveal>
           <h2 id="founder-title" className="founder-role">Hardik Shah, CPA</h2>
           <p className="founder-practice">Founder &amp; Lead CPA · Cross-border US international tax &amp; advisory</p>
-          <ul><li>Licensed Certified Public Accountant (CPA) — jurisdiction and licence number to be confirmed and displayed here.</li><li>Specialisation in US international filings: Forms 5471, 5472, FBAR, 8938, and related reporting.</li><li>Experience with inbound, outbound, and expat cross-border engagements.</li><li>Member of professional body — details to be confirmed.</li></ul>
+          <ul><li>Licensed Certified Public Accountant (CPA) — jurisdiction and licence number to be confirmed and displayed here.</li><li>Specialisation in US international filings: Forms 5471, 5472, FBAR, 8938, and related reporting.</li><li>Leads the Primary Account Managers who own each client relationship and advisory delivery.</li><li>Experience with inbound, outbound, and expat cross-border engagements.</li><li>Member of professional body — details to be confirmed.</li></ul>
           <div className="founder-bio-foot"><a className="button-primary" href="#contact">Book a 20-minute consultation <ArrowUpRight aria-hidden="true" /></a></div>
         </div>
       </div>
@@ -339,18 +352,18 @@ function WhyBenifacts() {
     <div className="shell section-pad">
       <div className="centered-head" data-reveal>
         <Label>01 · Why Benifacts</Label>
-        <h2 id="why-title">Complete financial solutions <em>for US businesses.</em></h2>
-        <p>Everything your business needs to stay compliant, optimize tax, and plan for growth—delivered with the care and precision of a trusted partner.</p>
+        <h2 id="why-title">International compliance <em>you can rely on.</em></h2>
+        <p>A U.S. CPA-led firm built around cross-border work—we routinely manage high-risk international filings that carry substantial IRS penalties, with accurate, timely and audit-defensible documentation.</p>
       </div>
       <div className="filing-cards">
-        <p className="filing-cards-title" data-reveal>INTERNATIONAL FILINGS MANAGED</p>
-        {filings.map((f, i) => <div className="filing-card" key={f} data-progress="card" style={{ "--i": i } as React.CSSProperties}><Cross /><span className="filing-index">{String(i + 1).padStart(2, "0")}</span><b>{f}</b></div>)}
+        <p className="filing-cards-title" data-reveal>INTERNATIONAL FILINGS MANAGED DAILY</p>
+        {filings.map(([f, what], i) => <div className="filing-card" key={f} data-progress="card" style={{ "--i": i } as React.CSSProperties}><Cross /><span className="filing-index">{what}</span><b>{f}</b></div>)}
         <a className="filing-card more" href="#expertise" data-progress="card"><Cross /><span className="filing-index">+ 8865 · 926 · 1042-S</span><b>MORE <Plus aria-hidden="true" /></b></a>
       </div>
       <div className="why-intro" data-reveal>
         <span className="why-mark" aria-hidden="true">B.</span>
-        <h3><ScrubText text="Simplifying complexity for businesses that don’t stop at the border." /></h3>
-        <p>Every client has a dedicated Primary Account Manager who owns your relationship, your compliance, and your advisory delivery. Your financial data is protected with SOC 2-compliant practices and advanced encryption at every step.</p>
+        <h3><ScrubText text="Accuracy, transparency and integrity for businesses that don’t stop at the border." /></h3>
+        <p>A cross-border advisory firm that also delivers the accounting. Every client has a dedicated Primary Account Manager who owns the relationship and the advisory; bookkeeping, payroll and routine compliance run through our trusted delivery partners. A technology-driven, client-first team of certified accountants—and your data is protected with SOC 2-compliant practices and encryption at every step.</p>
       </div>
       <ul className="stats" data-reveal>{stats.map(([n, l], i) => <li key={l} style={{ "--i": i } as React.CSSProperties}><b>{n}</b><span>{l}</span></li>)}</ul>
     </div>
@@ -364,7 +377,7 @@ function Expertise() {
       <div className="centered-head with-aside" data-reveal>
         <Label>02 · Our expertise</Label>
         <h2 id="expertise-title">The right perspective. <em>The right next move.</em></h2>
-        <p>From cross-border tax planning to US compliance and sales tax strategy—full-service advisory with dedicated Primary Account Managers who own your outcomes end-to-end.</p>
+        <p>Planning and compliance first: cross-border tax advisory, U.S. tax compliance, sales tax, and company setup for founders and CEOs of growing businesses.</p>
       </div>
       <ol className="practice-stack">{services.map((s, i) => <li className="practice" key={s.number} style={{ "--i": i } as React.CSSProperties}>
         <a className="practice-card" href={s.href}>
@@ -392,7 +405,7 @@ function WhoWeHelp() {
       <div className="centered-head" data-reveal>
         <Label>03 · Who we help</Label>
         <h2 id="clients-title">Built for ambition. <em>Grounded in detail.</em></h2>
-        <p>From sole proprietors to growing businesses operating across borders.</p>
+        <p>Start with your situation—we’ll map the solution and the strategy call from there.</p>
         <a className="text-link" href="#contact">Find your way forward <ArrowUpRight aria-hidden="true" /></a>
       </div>
     </div>
@@ -461,6 +474,7 @@ function Insights() {
           <a className="card-link" href="#contact" aria-label={`Discuss your situation: ${item.title}`} />
         </article>)}
       </div>
+      <p className="resource-links" data-reveal><span>OFFICIAL REFERENCES</span>{resources.map(([label, href]) => <a key={href} href={href} target="_blank" rel="noreferrer">{label} <ArrowUpRight aria-hidden="true" /></a>)}</p>
     </div>
   </section>;
 }
@@ -483,13 +497,13 @@ function Contact() {
     <div className="shell contact-grid">
       <div className="contact-copy" data-reveal>
         <Label>07 · Let’s connect</Label>
-        <h2 id="contact-title">Ready to simplify your <em>cross-border tax?</em></h2>
-        <p>Schedule a free consultation with one of our cross-border advisory specialists. We’ll assess your current obligations and identify immediate planning opportunities at no cost—and reply within one business day.</p>
+        <h2 id="contact-title">Schedule a call with a <em>cross-border expert.</em></h2>
+        <p>Schedule a free consultation with one of our cross-border advisory specialists. We’ll assess your current obligations and identify immediate planning opportunities at no cost—and reply within one business day. We serve U.S. clients nationwide, from tech startups and real estate investors to healthcare practices, contractors and SMEs.</p>
         <ol><li><span>01</span>Initial consultation — your cross-border footprint and tax priorities.</li><li><span>02</span>Assessment &amp; scoping — obligations, exposures and engagement scope.</li><li><span>03</span>Strategy &amp; setup — a tax-efficient structure and compliance plan.</li><li><span>04</span>Ongoing advisory — compliance management and proactive planning.</li></ol>
-        <a className="email-call" href="mailto:info@benifactscpa.com?subject=Schedule%20a%20call%20%E2%80%94%20Benifacts">Schedule a call <ArrowUpRight aria-hidden="true" /></a>
+        <a className="email-call" href="mailto:info@benifactscpa.com?subject=Schedule%20a%20call%20%E2%80%94%20Benifacts">Schedule a call with a cross-border expert <ArrowUpRight aria-hidden="true" /></a>
         <dl className="offices"><div><dt>EMAIL</dt><dd><a href="mailto:info@benifactscpa.com">info@benifactscpa.com</a></dd></div><div><dt>PHONE</dt><dd><a href="tel:+02079934109">+02 079 934 109</a></dd></div><div><dt>ADDRESS</dt><dd>BENIFACTS Inc, 5301 NW 100th Ave, Coral Springs, FL 33076, US</dd></div></dl>
       </div>
-      <div className="form-wrap" data-reveal><form action="https://benifacts-consulting-portfolio-170717.hostingersite.com/api/contact" method="post"><label>Full name<input name="name" type="text" placeholder="Your name" required /></label><label>Email<input name="email" type="email" placeholder="you@company.com" required /></label><div className="field-pair"><label>Company <small>(optional)</small><input name="company" type="text" placeholder="Company or entity name" /></label><label>Countries involved <small>(optional)</small><input name="countries" type="text" placeholder="e.g. US and India" /></label></div><FancySelect name="service" label="What do you need help with?" placeholder="Select a service" groups={serviceOptions} /><FancySelect name="source" label="How did you hear about us?" optional placeholder="Select an option" groups={sourceOptions} /><label>Tell us a little more<textarea name="message" rows={4} placeholder="Which years are open, who owns what, and what you’re trying to do. Please don’t send account or ID numbers here." required /></label><label className="consent"><input type="checkbox" required /><span>I understand this form sends general information, not advice, and that no client relationship is created until an engagement letter is signed.</span></label><button className="send" type="submit">Send message <Plus aria-hidden="true" /></button><p className="form-note">We reply within 1 business day</p><p className="fineprint">By submitting, you agree to our <a href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a>. Your information is used only to respond to your enquiry.</p></form></div>
+      <div className="form-wrap" data-reveal><form action="https://benifacts-consulting-portfolio-170717.hostingersite.com/api/contact" method="post"><label>Full name<input name="name" type="text" placeholder="Your name" required /></label><label>Email<input name="email" type="email" placeholder="you@company.com" required /></label><div className="field-pair"><label>Company <small>(optional)</small><input name="company" type="text" placeholder="Company or entity name" /></label><label>Countries involved <small>(optional)</small><input name="countries" type="text" placeholder="e.g. US and India" /></label></div><FancySelect name="situation" label="Which best describes you?" placeholder="Select your situation" groups={situationOptions} /><FancySelect name="service" label="What do you need help with?" placeholder="Select a service" groups={serviceOptions} /><FancySelect name="source" label="How did you hear about us?" optional placeholder="Select an option" groups={sourceOptions} /><label>Tell us a little more<textarea name="message" rows={4} placeholder="Which years are open, who owns what, and what you’re trying to do. Please don’t send account or ID numbers here." required /></label><label className="consent"><input type="checkbox" required /><span>I understand this form sends general information, not advice, and that no client relationship is created until an engagement letter is signed.</span></label><button className="send" type="submit">Send message <Plus aria-hidden="true" /></button><p className="form-note">We reply within 1 business day</p><p className="fineprint">By submitting, you agree to our <a href="https://benifacts-consulting-portfolio-170717.hostingersite.com/privacy">Privacy Policy</a>. Your information is used only to respond to your enquiry.</p></form></div>
     </div>
   </section>;
 }

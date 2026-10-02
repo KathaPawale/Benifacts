@@ -42,13 +42,13 @@ export function Header({ home = true }: { home?: boolean }) {
         </div>
         {nav.slice(2).map(([label, href]) => <a key={href} href={base + href}>{label}</a>)}
       </nav>
-      <a className="header-cta" href={base + "#contact"}>Let’s talk <Plus size={15} aria-hidden="true" /></a>
+      <a className="header-cta" href={base + "#contact"}>Schedule a call <Plus size={15} aria-hidden="true" /></a>
       <button className="menu-button" type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
     </div>
     <div id="mobile-menu" className="mobile-menu" hidden={!open}>
       <nav aria-label="Mobile navigation">{[...nav, ["FAQ", "#faq"] as [string, string]].map(([label, href], i) => <a key={href} href={base + href} onClick={() => setOpen(false)}><span>{String(i + 1).padStart(2, "0")}</span>{label}</a>)}</nav>
       <nav className="mobile-services" aria-label="Services"><small>SERVICES</small>{services.map((s) => <a key={s.slug} href={`/services/${s.slug}/`}>{s.name}</a>)}</nav>
-      <a className="button-primary" href={base + "#contact"} onClick={() => setOpen(false)}>Get in touch <ArrowUpRight aria-hidden="true" /></a>
+      <a className="button-primary" href={base + "#contact"} onClick={() => setOpen(false)}>Schedule a call <ArrowUpRight aria-hidden="true" /></a>
     </div>
     <div className="reading-progress" aria-hidden="true" />
   </header>;
